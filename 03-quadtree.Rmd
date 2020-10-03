@@ -1,0 +1,3 @@
+# Quad Tree {#qtree}
+
+We describe our methods in this chapter.

@@ -1,0 +1,14 @@
+--- 
+title: "COMP 261: Data Structures and Algorithms"
+author: "Luke O'Donnell"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+biblio-style: apalike
+link-citations: yes
+description: "Course Notes for COMP 261: Data Structures and Algorithms"
+---
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(echo = FALSE)
+```
