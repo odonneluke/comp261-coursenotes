@@ -1,6 +1,28 @@
 .Rproj.user
 .Rhistory
 .RData
-**/rsconnect/
+.Ruserdata
+rsconnect
+_book/*
+_bookdown_files/*
+packages.bib
+*-tikzDictionary
+css/box.css
+latex/blackbox.tex
+latex/infobox.tex
+
+# OS generated files #
+######################
 .DS_Store
-**/*.min.js.map
+.DS_Store?
+
+# Compiled example files
+examples/*.pdf
+examples/*.html
+examples/*/*.pdf
+examples/*/*.html
+examples/listings-settings.tex
+
+# Compiled book
+
+_book/
