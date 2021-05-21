@@ -1,0 +1,2541 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={COMP 261: Data Structures and Algorithms},
+  pdfauthor={Luke O'Donnell},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
+
+\title{COMP 261: Data Structures and Algorithms}
+\author{Luke O'Donnell}
+\date{2020-11-03}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{graphs}{%
+\chapter{Graphs}\label{graphs}}
+
+A graph data structure consists of a finite (and possibly mutable) set of vertices (also called nodes or points), together with a set of unordered pairs of these vertices for an undirected graph or a set of ordered pairs for a directed graph. These pairs are known as edges (also called links or lines), and for a directed graph are also known as arrows.
+Figures and tables with captions will be placed in \texttt{figure} and \texttt{table} environments, respectively.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.3\linewidth,height=0.3\textheight]{img/01-image01} 
+
+}
+
+\caption{A directed graph with three vertices and three edges}\label{fig:graph}
+\end{figure}
+
+A graph data structure may also associate to each edge some edge value, such as a symbolic label or a numeric attribute (cost, capacity, length, etc.).\\
+Graphs have many real world applications including:
+
+\begin{itemize}
+\tightlist
+\item
+  Locations with connections e.g.~airports and flights, railways and train stations, intersections and roads
+\item
+  Entities with relationships e.g.~Social networks, Web pages
+\end{itemize}
+
+We will only consider directed graphs. Undirected graphs can be seen as a special case of a directed graph where the edge can be seen as a pair of directed edges e.g.~(A, B) can be seen as (A → B) and (B → A). Complex graphs can have other properties such as loops (A, A) and parallel edges (multiple edges existing between the same pair of nodes.
+
+What \emph{data structure} should be used to represent a graph?
+
+\hypertarget{repr}{%
+\section{Representations}\label{repr}}
+
+A proper data structure to represent a graph should support the following common graph operations efficiently.
+
+\begin{table}
+
+\caption{\label{tab:grap-ops}common graph operations}
+\centering
+\begin{tabular}[t]{ll}
+\toprule
+Operation & Description\\
+\midrule
+adjacent(G, x, y) & tests whether there is an edge from the vertex x to the vertex y\\
+neighbours(G, x) & lists all vertices y such that there is an edge from the vertex x to the vertex y\\
+add\_vertex(G, x) & adds the vertex x, if it is not there\\
+remove\_vertex(G, x) & removes the vertex x, if it is there\\
+add\_edge(G, x, y) & adds the edge from the vertex x to the vertex y, if it is not there\\
+\addlinespace
+remove\_edge(G, x, y) & removes the edge from the vertex x to the vertex y, if it is there\\
+get\_vertex\_value(G, x) & returns the value associated with the vertex x\\
+set\_vertex\_value(G, x, v) & sets the value associated with the vertex x to v\\
+get\_edge\_value(G, x, y & returns the value associated with the edge (x, y)\\
+set\_edge\_value(G, x, y, v) & sets the value associated with the edge (x, y) to v\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+There are two traditional data structures used for representing graphs in practice.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  {Adjacency Matrix}
+\item
+  {Adjacency List}
+\end{enumerate}
+
+\hypertarget{adjacency-matrix}{%
+\subsection{Adjacency Matrix}\label{adjacency-matrix}}
+
+An adjacency matrix is a square matrix used to represent a finite graph. The number of rows and columns in the matrix are equal to the number of nodes in the graph. The elements in the matrix indicate whether the pair of vertices are adjacent in the graph.
+
+\begin{figure}
+
+{\centering \includegraphics{img/01-image02} 
+
+}
+
+\caption{Adjancency matrix from a graph}\label{fig:adj-matrix}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  M\textsubscript{i,j} = 1 if there is an edge from node \emph{i} to node \emph{j}
+\item
+  M\textsubscript{i,j} = 0 otherwise
+\end{itemize}
+
+This form of an adjacency matrix (where elements are 0 or 1) cannot be used to represent a weighted graph i.e.~edges with lengths.
+
+\begin{itemize}
+\tightlist
+\item
+  M\textsubscript{i,j} = w\textsubscript{i,j} is the weight of the edge from node \emph{i} to node \emph{j}
+\item
+  M\textsubscript{i,j} = \texttt{null} if there is no edge from node \emph{i} to node \emph{j}
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics{img/01-image03} 
+
+}
+
+\caption{Adjancency matrix from a weighted graph}\label{fig:wadj-matrix}
+\end{figure}
+
+However this and the previous form of the matrix cannot be used to represent graphs where there are parallel/multiple edges between same pair of vertices.
+
+There is an additional implementation of a finite graph using an adjacency matrix that would allow it to represent complex finite graphs(has loops and parallel edges).
+
+\begin{itemize}
+\tightlist
+\item
+  M\textsubscript{i,j} is a set of edge objects\footnote{Each instance of an Edge object should be unique, even in the cases when they are connected to the exact same nodes. This is an example of when you shouldn't overwrite the equals method.}
+\item
+  If the length of M\textsubscript{i,j} is 1, then there is a single edge between node \emph{i} and node \emph{j}
+\item
+  If the length of M\textsubscript{i,j} is 0, then there is no edge connecting node \emph{i} to node \emph{j}
+\item
+  If the length of M\textsubscript{i,j} is \textgreater{} 1 then there multiple parallel edges between node \emph{i} and node \emph{j}.
+\end{itemize}
+
+\hypertarget{adjacency-list}{%
+\subsection{Adjacency List}\label{adjacency-list}}
+
+\hypertarget{time-complexity}{%
+\subsection{Time Complexity}\label{time-complexity}}
+
+\hypertarget{displaying-graphs}{%
+\section{Displaying Graphs}\label{displaying-graphs}}
+
+\hypertarget{coordinate-systems}{%
+\subsection{Coordinate Systems}\label{coordinate-systems}}
+
+\hypertarget{trie}{%
+\chapter{Trie}\label{trie}}
+
+Here is a review of existing methods.
+
+\hypertarget{qtree}{%
+\chapter{Quad Tree}\label{qtree}}
+
+We describe our methods in this chapter.
+
+\hypertarget{pfind}{%
+\chapter{Path Finding}\label{pfind}}
+
+Some \emph{significant} applications are demonstrated in this chapter.
+
+\hypertarget{example-one}{%
+\section{Example one}\label{example-one}}
+
+\hypertarget{example-two}{%
+\section{Example two}\label{example-two}}
+
+\hypertarget{artpts}{%
+\chapter{Articulation Points}\label{artpts}}
+
+\hypertarget{mst}{%
+\chapter{Minimum Spanning Trees}\label{mst}}
+
+\hypertarget{djs}{%
+\chapter{Disjoint-Sets}\label{djs}}
+
+\hypertarget{kruskals-algorithm-revisited}{%
+\section{Kruskal's Algorithm Revisited}\label{kruskals-algorithm-revisited}}
+
+The most time consuming step in Kruskal's algorithm is finding whether two node's are in the same tree (part of the forest) and if not
+merging the two tree's together.
+
+\hypertarget{complexity}{%
+\subsection{Complexity}\label{complexity}}
+
+Two operations dominate the efficiency of Kruskal's algorithm
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{{Find}:} Determine whether two elements are in the same \emph{tree} of the \emph{forest}
+\item
+  \textbf{{Union}:} Merge two trees into one
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics{img/07-image00} 
+
+}
+
+\caption{Finding the MST for a graph using Kruskal's algorithm}\label{fig:kruskal}
+\end{figure}
+
+The cost of these two operations depend on the data structure used for the \textbf{forest}
+
+\hypertarget{option-1-set-of-sets}{%
+\subsubsection{Option 1: Set of Sets}\label{option-1-set-of-sets}}
+
+\begin{figure}
+
+{\centering \includegraphics{img/07-image01} 
+
+}
+
+\caption{Representing the forest with a set of sets.}\label{fig:hashset}
+\end{figure}
+
+The {cost of finding} each node in the forest is \emph{O(N)} as you must iterate through each element in the outer set to find the node you're looking for. Similarly {cost of merging} two trees is \emph{O(N)} as you must add all elements from one set into the other set.
+
+A set of sets e.g.~\texttt{HashSet\textless{}HashSet\textless{}Node\textgreater{}\textgreater{}} would be a poor choice as the data structure of the forest.
+
+\hypertarget{option-2-add-a-set-id-to-each-node}{%
+\subsubsection{Option 2: Add a Set Id to each Node}\label{option-2-add-a-set-id-to-each-node}}
+
+\begin{figure}
+
+{\centering \includegraphics{img/07-image02} 
+
+}
+
+\caption{Adding a set id to each node}\label{fig:set-id}
+\end{figure}
+
+The {cost of finding} each node in the forest is \emph{O(1)} as you only have to check if the two nodes have the same set Id. However, the {cost of merging} two trees is still \emph{O(N)} as you must change the set Id of all the nodes in one set to the same Id in the other set.
+
+Adding a identifier to each node is an improvement over a ``set of sets'' as the data structure of the forest. But, there is an even better data structure to use, the \textbf{Disjoint-Set}.
+
+\hypertarget{disjoint-set-data-structure}{%
+\section{Disjoint-Set Data Structure}\label{disjoint-set-data-structure}}
+
+A {disjoint-set}, also called a {union-find} data structure, stores a collection of disjoint/non-overlapping sets. It provides efficient, near \emph{O(1)} operations for finding a member in the set and merging sets.
+
+The most common implementation of a disjoint-set data structure is called a \emph{disjoint-set forest}
+
+\begin{figure}
+
+{\centering \includegraphics{img/07-image03} 
+
+}
+
+\caption{A representation of the disjoint-set forest. The forest is set containing the root nodes of each disjoint-set. Each disjoint set is parent-pointer tree}\label{fig:disjoint-set}
+\end{figure}
+
+Under this representation a {parent pointer tree} is used to represent each element in the forest. A parent pointer tree can be thought of as an inverted tree; each node that isn't the root points to its parent node.
+
+\begin{itemize}
+\tightlist
+\item
+  Two nodes are in the same set if and only if the roots of the trees containing the nodes are equal.
+\item
+  The forest is the set of the {root node}** of each parent pointer tree.
+\end{itemize}
+
+\hypertarget{operations}{%
+\subsection{Operations}\label{operations}}
+
+Disjoint-set data structures support three operations: {Making}a new set containing a new element, {finding} the root of the set containing a given element, and {merging} two sets.
+
+\hypertarget{makeset}{%
+\subsubsection{MakeSet}\label{makeset}}
+
+The \texttt{MakeSet} operation adds a new element. The element is placed into a new set containing only the new element, and the new set is added to the forest.
+
+The \texttt{MakeSet} operation has \textbf{O(1)} complexity. In particular, initializing a disjoint-set forest with \textbf{n} nodes requires \textbf{O(n)} time.
+
+\begin{figure}
+
+{\centering \includegraphics{img/07-image04} 
+
+}
+
+\caption{Initializing a new disjoint-set with element x as the root}\label{fig:makeset}
+\end{figure}
+
+\hypertarget{find}{%
+\subsubsection{Find}\label{find}}
+
+The \texttt{Find} operation follows the chain of parent pointers from a specific node \textbf{x} until it reaches the root element. This root element represents the set to which \textbf{x} belongs and may be \textbf{x} itself. \texttt{Find} returns the root element it reaches.
+
+The time in a \texttt{Find} operation is spent chasing parent pointers, so a flatter tree leads to faster \texttt{Find} operations.
+
+\begin{figure}
+
+{\centering \includegraphics{img/07-image05} 
+
+}
+
+\caption{Find which tree several elements beloing to}\label{fig:find}
+\end{figure}
+
+Better performance, can be achieved by updating the parent pointers during a pass to point closer to the root. Because every element visited on the way to the root is part of the same set, this does not change the sets stored in the forest. But it makes future \texttt{Find} operations faster.
+
+There are several algorithms for Find that achieve the asymptotically optimal time complexity. One family of algorithms, known as path compression, makes every node between the query node and the root point to the root. Path compression can be implemented using a simple recursion as follows:
+
+This implementation makes two passes, one up the tree and one back down.
+
+\hypertarget{union}{%
+\subsubsection{Union}\label{union}}
+
+The operation \texttt{Union(x,y)} merges the two sets containing \textbf{x} and the set containing \textbf{y} together. \texttt{Union} first uses \texttt{Find} to determine the roots of the trees containing \texttt{x} and \texttt{y}:
+
+\begin{itemize}
+\tightlist
+\item
+  If the two roots are the same, there is nothing to do.
+\item
+  Otherwise, the two trees must be merged. This is done by either setting the parent pointer of \textbf{x} to \textbf{y} or vice versa.
+\end{itemize}
+
+The choice of which node becomes the parent is consequential. If it is done carelessly, trees can become excessively tall, resulting in decreased performance of future \texttt{Find} and \texttt{Union} operations.
+
+\begin{figure}
+
+{\centering \includegraphics{img/07-image06} 
+
+}
+
+\caption{Merge sets}\label{fig:union}
+\end{figure}
+
+In order to ensure the optimal performance, {shallower trees should be merged into deeper trees}. This requires additional information to be stored in the disjoint-set, the \textbf{depth}.
+
+Storing the depth requires, modifying the \texttt{MakeSet} operation
+
+The \texttt{Union} operation can now make use of the \textbf{depth} to merge the shallower tree into the deeper tree.
+
+Using a disjoint-set as the data structure for the forest gives near \textbf{O(1)} performance for determining whether two elements belong to the same set and merging two sets into one. This massively improves the performance of Kruskal's algorithm for MST.
+
+\hypertarget{threed}{%
+\chapter{3D Rendering}\label{threed}}
+
+\hypertarget{d-graphics}{%
+\section{3D Graphics}\label{d-graphics}}
+
+3D graphics have many applications, including in movies, games and animations. {Rendering} is the act of displaying {3D objects} on a {2D screen}.
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image01.png}
+\caption{\label{fig:3d-app}Examples of the applications of 3D graphics}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image02.png}
+\caption{\label{fig:3d-render}3D object rendered on a 2D screen}
+\end{figure}
+
+When rendering a 3D object several properties of the object must be considered:
+
+\begin{itemize}
+\tightlist
+\item
+  Shape
+\item
+  Surface properties
+\item
+  Material/Mass
+\item
+  Movement/Animation
+\item
+  Light sources
+\end{itemize}
+
+Only the visible surface's of a 3D object need to be drawn; any hidden parts can be ignored. This raises two questions:
+
+\begin{itemize}
+\tightlist
+\item
+  How can the {visible surfaces} be {identified}
+\item
+  How can the {visible surfaces} be {rendered} on a computer screen.
+\end{itemize}
+
+{Pixels} are an elementary unit for representing 2D objects, however they are {not performant} enough to be used for representing the surfaces of 3D objects. An alternative rendering unit are {polygons}. {Polygons} can use triangles, squares and many other shapes to approximate the surfaces of 3D objects.
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image03.png}
+\caption{\label{fig:polygon-repr}Polygons being used to approximate the surface of a 3D surface. The higher the resolution, the better the image}
+\end{figure}
+
+\hypertarget{polygon}{%
+\section{Polygon}\label{polygon}}
+
+A polygon consists of a {list of vertices}. Each vertex is a {point} in 3D space. The locations of each of the vertices is represented with a 3D coordinate {(x, y, z)}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image04.png}
+\caption{\label{fig:polygon-approx}Polygons being used to approximate the surface of a 3D surface. The higher the resolution, the better the image}
+\end{figure}
+
+The locations of each vertex is represented with a 3D coordinate {(x, y, z)}.
+
+\hypertarget{d-coordinate-system}{%
+\subsection{3D coordinate system}\label{d-coordinate-system}}
+
+The 3D coordinate system used for rendering 3D objects, uses the right-hand rule to understand the orientation of the three axes in 3D space. For right-handed coordinates the right thumb points along the Z axis in the positive direction and the curl of the fingers represents a motion from the first or X axis to the second or Y axis. When viewed from the top or Z axis the system is counter-clockwise.
+
+For left-handed coordinates the left thumb points along the Z axis in the positive direction and the culrled fingers of the left hand represent a motion from the first or X axis to the second or Y axis. When viewed from the top or Z axis the system is clockwise.
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image05.png}
+\caption{\label{fig:3d-coords}Left-handed coordinates on the left, right-handed coordinates on the right.}
+\end{figure}
+
+Under either rule the axes are ordered x, y and z
+
+\hypertarget{d-transformations}{%
+\subsection{3D transformations}\label{d-transformations}}
+
+Like their 2D counter-parts transformation of 3D polygons i.e.~{translation, scaling and rotation} requires changing the coordinate of each vertex in the polygon using {linear algebra}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image06.png}
+\caption{\label{fig:3d-transform}Translation, scaling and rotation}
+\end{figure}
+
+\hypertarget{linear-algebra-basics}{%
+\section{Linear Algebra: Basics}\label{linear-algebra-basics}}
+
+There are two basic structures to be considered in linear algebra, are the vector and matrix:
+
+\begin{itemize}
+\tightlist
+\item
+  A {vector} is a n dimensional list of numbers
+\item
+  A {matrix} is an m-row-by-n-column array of numbers
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image07.png}
+\caption{\label{fig:vectors}Scalars, Vectors and Matrices}
+\end{figure}
+
+A {n-dim} {vector} can be generalised as a {n-row-1-column} {matrix}. So the rules of linear algebra that apply to matrices also apply to vectors.
+
+\hypertarget{matrix-addition}{%
+\subsection{Matrix Addition}\label{matrix-addition}}
+
+In order to add two matrices, both matrices must have the same dimensions (same number of rows and columns). If this condition is met, then matrix addition consists of adding the element in one matrix to the corresponding element in the other matrix.
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image08.png}
+\caption{\label{fig:matrix-addition}Add the elements in one matrix to the corresponding elements in the other matrix}
+\end{figure}
+
+\hypertarget{matrix-multiplication}{%
+\subsection{Matrix Multiplication}\label{matrix-multiplication}}
+
+The condition for multiplying two matrices, is that the number of columns in matrix 1, must be the same as the number of rows in matrix 2.
+
+\begin{itemize}
+\tightlist
+\item
+  Matrix 1: {m}-row x {n}-col
+\item
+  Matrix 2: {n}-row x {k}-col
+\end{itemize}
+
+To calculate element (i, j) of the resulting matrix, multiply row i in matrix 1 by column j in matrix 2.
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image09.png}
+\caption{\label{fig:matrix-mult1}Get row i from matrix 1 and column j from matrix 2}
+\end{figure}
+
+And take the inner product of two vectors with the same dimension.
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image10.png}
+\caption{\label{fig:matrix-inner}Calculate the inner product of row i and column j}
+\end{figure}
+
+Repeat this for every row in matrix 1 and column in matrix 2. The resulting matrix will have {m}-rows and {k}-columns.
+
+\begin{itemize}
+\tightlist
+\item
+  ({m}-row-{n}-col) x {n}-row-{k}-col → ({m}-row-{k}-col).
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image11.png}
+\caption{\label{fig:matrix-mult}Matrix multiplication}
+\end{figure}
+
+Matrix multiplication and addition are both associate (as with scalars), this means you could multiply the matrices of multiple transformations to form one resultant matrix that can be directly applied on a point.
+
+This is one reason GPUs are optimized for fast matrix multiplications. In computer graphics, we need to apply lots of transformations to out \#D object to display it on a 2D monitor. Those transforms are compiled down into one matrix which is applied to all the points in the 3D world.
+
+\hypertarget{d-transformations-1}{%
+\section{3D Transformations}\label{d-transformations-1}}
+
+\hypertarget{translation}{%
+\subsection{Translation}\label{translation}}
+
+Translating a 3D vector or matrix is simply an application of matrix addition. To translate point (x, y, z) by
+(\&Deltax, \&Deltay, \&Deltaz)
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image12.png}
+\caption{\label{fig:3d-translation}3D Translation}
+\end{figure}
+
+\hypertarget{scaling}{%
+\subsection{Scaling}\label{scaling}}
+
+Scaling a 3D matrix is an application of matrix multiplication. To scale (x, y, z) by scaling factors (Sx, Sy, Sz), multiply the point vector by the scale matrix, S.
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image13.png}
+\caption{\label{fig:3d-scaling}3D Scaling}
+\end{figure}
+
+Prior to scaling the 3D point must be translated so that its center lies on the origin, and then appy the reverse translation after scaling.
+
+\hypertarget{rotation}{%
+\subsection{Rotation}\label{rotation}}
+
+Rotation is a complicated scenario for 3D transforms. Here, you need an axis around which you rotate the object.
+Before generalizing the rotation for any axis, let's do it around the x, y, and z-axes. After doing it with one axis, the other two will become fairly easy.
+
+\begin{itemize}
+\tightlist
+\item
+  {x-axis}: Here imagine the y-z plane is your screen monitor, {x-axis} rotate anti-clockwise about the angle \&theta,keeping x fixed.
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image14.png}
+\caption{\label{fig:3d-rotation1}3D Rotation in the y-z plane}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  {y-axis}: Here imagine the x-z plane is your screen monitor, {x-axis} rotate anti-clockwise about the angle \&theta,keeping y fixed.
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image15.png}
+\caption{\label{fig:3d-rotation2}3D Rotation in the x-z plane}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  {z-axis}: Here imagine the x-y plane is your screen monitor, {x-axis} rotate anti-clockwise about the angle \&theta,keeping z fixed.
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image16.png}
+\caption{\label{fig:3d-rotation3}3D Rotation in the x-y plane}
+\end{figure}
+
+The below three figures summarise rotation about the three axes.
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image17.png}
+\caption{\label{fig:3d-rotation4}3D Rotation summarised}
+\end{figure}
+
+\hypertarget{unified-transformation-operator}{%
+\section{Unified Transformation Operator}\label{unified-transformation-operator}}
+
+Each of translation, scaling and rotation involved a different matrix operation.
+
+\begin{itemize}
+\tightlist
+\item
+  Translation: add a vector
+\item
+  Scaling: multiply by a matrix on the left
+\item
+  Rotation: multiply by a matrix on the left
+\end{itemize}
+
+Having a {unified transformation operator} would significantly simplify 3D transformation. This would give a single method/function for all transformation scenario's. To achieve this, translation needs to be redefined as a matrix multiplication (on the left).
+
+In order to achieve this the point (x, y, z), needs an extra dimension.
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image18.png}
+\caption{\label{fig:trans-unified-op}Translation of a 3D point by matrix mulitplication. The translation matrix has 1s all along the diagonal the \&Deltas are down the final column and all other entries are 0.}
+\end{figure}
+
+The other two transformations can also be redefined with the additional dimension.
+
+\begin{itemize}
+\tightlist
+\item
+  Scaling
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image19.png}
+\caption{\label{fig:scaling-unified-op}Scaling matrix. The top-left corner is the original 3x3 matrix with 1 as the final diagonal element and all other entries are zero}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Rotation
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image20.png}
+\caption{\label{fig:rotate-unified-op}Rotation matrices. The top-left cornet is the original 3x3 matrix with 1 as the final diagonal element and all other entries are zero}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image21.png}
+\caption{\label{fig:rotate-unified-x}Rotation transformation about the x-axis}
+\end{figure}
+
+\hypertarget{pseudocode}{%
+\subsection{Pseudocode}\label{pseudocode}}
+
+\hypertarget{composite-transformations}{%
+\section{Composite Transformations}\label{composite-transformations}}
+
+So far we've seen how to do a {single transformation} (translation, scaling, rotation) using unified the unified transformation operator, but what if we apply {multiple transformations}?
+
+\begin{itemize}
+\tightlist
+\item
+  {translation + scaling or translation + rotation}
+\end{itemize}
+
+This type of operation can be achieved with {composite matrix multiplication}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image22.png}
+\caption{\label{fig:composite-mult}Translation and rotation as composite matrix multiplication}
+\end{figure}
+
+Matrix transformations should be applied from right to left i.e.~first transformation to the right most matrix and last to the left most matrix
+
+The prioritisation of transformation operations is:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Translation
+\item
+  Scaling
+\item
+  Rotation
+\end{enumerate}
+
+\hypertarget{drawing-polygons}{%
+\section{Drawing Polygons}\label{drawing-polygons}}
+
+Only the visible {surfaces} of a polygon should be drawn. How, can you find out which surfaces are visible?
+
+\begin{itemize}
+\tightlist
+\item
+  Use 3D coordinate system + cross product
+\end{itemize}
+
+This method assumes the {viewer looks along the z-axis} and the polygons vertices are {ordered anti-clockwise from the perspective of the viewer}.
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image23.png}
+\caption{\label{fig:draw-polygon}The z-axis faces the viewer (blue plane), the vertices are ordered anti-clockwise}
+\end{figure}
+
+\hypertarget{cross-product}{%
+\subsection{Cross Product}\label{cross-product}}
+
+The cross product is an operation applied to two vectors of the same dimension. It returns a new vector that is {perpendicular} to the two input vectors
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image24.png}
+\caption{\label{fig:cross-prod}Cross product}
+\end{figure}
+
+The orientation of the three vectors follow the {right-hand rule}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image25.png}
+\caption{\label{fig:rhr}Right-hand rule orientation of the three vectors}
+\end{figure}
+
+And the cross product can be used to determine which direction the polygon is facing.
+
+\begin{itemize}
+\tightlist
+\item
+  the vertices v1, v2, v3
+\item
+  the cross product vector (v1 - v2) x (v3 - v2) faces the viewer
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image26.png}
+\caption{\label{fig:cross-prod-vec}Orientation of the cross product relative to the three vertices}
+\end{figure}
+
+\hypertarget{determining-visibleinvisible-polygons}{%
+\subsection{Determining Visible/Invisible Polygons}\label{determining-visibleinvisible-polygons}}
+
+The cross product {(v1 - v2) x (v3 - v2)} is called the normal of the polygon. A normal is a line that is perpendicular to the surface of the polygon and the direction of the normal is used to determine whether the polygon surface is visible.
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image27.png}
+\caption{\label{fig:normal}The green lines are the normals of the polygon}
+\end{figure}
+
+Assuming that the polygon is being viewed along the {z-axis}:
+
+\begin{itemize}
+\tightlist
+\item
+  A polygon is {visible} if its {normal has negative z-coordinate values}
+\item
+  A polygon is {invisible} if its {normal has non-negative z-coordinate values}
+\end{itemize}
+
+\hypertarget{shading}{%
+\section{Shading}\label{shading}}
+
+Shading refers to the light that is reflected off of the surfaces of objects. In 3D graphics shading is the process of altering the colour of the surfaces of visible polygons, dependent on
+
+\begin{itemize}
+\tightlist
+\item
+  Direction and colour of light sources
+\item
+  Reflectance
+\item
+  Matte/Shiny surface
+\item
+  Colour, texture of the surface
+\end{itemize}
+
+A simple method to calculate the shading is:
+
+\begin{itemize}
+\tightlist
+\item
+  Assume a matte, {uniform reflectance} for red, green and blue colours
+\item
+  Assume some {ambient light} in the range (0,1{]}. Ambient light is omnidirectional and all surfaces equally
+\item
+  Assume an incident {light source} intensity (0, 1{]}, and its direction
+\item
+  Diffuse reflection depends on the direction of the incident light source
+
+  \begin{itemize}
+  \tightlist
+  \item
+    {incident light = incident light intensity * reflectance * cos(\&theta)}
+  \end{itemize}
+\item
+  {light = ambient light + incident light}
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image28.png}
+\caption{\label{fig:cos-theta}The calculation of cos theta is based on the law of cosines}
+\end{figure}
+
+\hypertarget{algorithm}{%
+\subsection{Algorithm}\label{algorithm}}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image29.png}
+\caption{\label{fig:shading}Algorithm to calculate the shading of 3D polygons}
+\end{figure}
+
+\hypertarget{advanced-shading}{%
+\section{Advanced Shading}\label{advanced-shading}}
+
+\hypertarget{flat-shading}{%
+\subsection{Flat shading}\label{flat-shading}}
+
+Here the light reflected from the polygon surface is span style=`color: lightseagreen;'\textgreater uniform, based on the assumption that the polygons surface is flat. The color is computed from the polygon's surface normal and is used for the whole polygon so it only needs to be calculated once, and makes the corners look sharp and contrast
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image30.jpg}
+\caption{\label{fig:flat-shading}Flat shading of a cuboid}
+\end{figure}
+
+\hypertarget{smooth-shading}{%
+\subsection{Smooth shading}\label{smooth-shading}}
+
+In contrast to flat shading where the colours change discontinuously at polygon borders, with smooth shading the color changes from pixel to pixel (across the surface), resulting in a smooth color transition between two adjacent polygons and the surface {approximates a curved surface}
+
+this situation the reflected light can be interpolated from the polygon vertices by using ``vertex normals'' ({average of the surface at the vertex)}:
+Usually pixel values are first calculated in the vertices and interpolation is used to calculate the values of pixels between the polygon vertices. Types of smooth shading include {Gourard shading} and {Phong shading}
+
+Gourard shading
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Determine the normal at each polygon vertex and calculate the light intensity from the vertex normal
+\item
+  {Interpolate the light intensities} over the surface of the polygon.
+\end{enumerate}
+
+Phong shading
+
+Phong shading is similar to Gouraud shading, except that instead of interpolating the light intensities the normals are interpolated between the vertices and the lighting is evaluated per-pixel
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Determine the normal at each vertex of the polygon
+\item
+  {Interpolate the normal at each pixel}
+\item
+  Calculate the light intensity from the computed normals across the surface of the polygon
+\end{enumerate}
+
+\hypertarget{polygon-rendering}{%
+\section{Polygon Rendering}\label{polygon-rendering}}
+
+To Render a {visible polygons} you need to compute its {shading colour} and {render} the polygon with its shading colour. Polygon rendering involves drawing a 3D polygon on a 2D screen.
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image31.png}
+\caption{\label{fig:polygon-render}Rendering a 3D shape on a 2D screen}
+\end{figure}
+
+To do this, set the z-axis of the polygon as the viewing direction, meaning the display screen is the x-y plane of the polygon. Polygons are rendered {line-by-line}.
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image32.png}
+\caption{\label{fig:polygon-render2}Diagramatic Rendering a 3D shape on a 2D screen}
+\end{figure}
+
+It is reasonably straight forward to obtain the ymin and ymax.
+
+\begin{itemize}
+\tightlist
+\item
+  ymin = v3.y
+\item
+  ymin = v2.y
+\end{itemize}
+
+How can you get xmin(y) and xmin(y)? For any y-value, the xmin(y) and xmin(y) are on the edges of the polygon, assuming the edges are scanned in an {anti-clockwise} direction:
+
+\begin{itemize}
+\tightlist
+\item
+  When you are scanning downwards (in the y direction) - xmin(y)
+\item
+  When you are scanning upwards (in the y direction) - xmax(y)
+\end{itemize}
+
+\hypertarget{linear-interpolation}{%
+\subsection{Linear Interpolation}\label{linear-interpolation}}
+
+Given the two end-nodes of an edge (x1, y1) and (x2, y2), what is the x value of the given y value along the edge?
+
+\begin{itemize}
+\item
+  Along the two edges, y changes from y1 to y2 and x changes from x1 to x2
+\item
+  For each unit change of y, x will change x2 - x1 / y2 - y1 ({slope})
+\item
+  {x(y) = x1 + slope * (y - y1)}
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image33.png}
+\caption{\label{fig:linear-interp}Using linear interpolation to compute the x coordinate from two edges and a given y value}
+\end{figure}
+
+This is repeated to compute the x values for all y values along the edge and the results stored in a list.
+
+Repeating this and scanning the three edges of the polygon will get the two lists xmin(y) and xmax(y)
+
+\hypertarget{edge-list}{%
+\subsection{Edge List}\label{edge-list}}
+
+Scan the three edges in the polygon, and update a 2-column \texttt{EdgeList} object. This object will store the xmin and xmax for a given y-coordinate.
+
+\begin{itemize}
+\tightlist
+\item
+  If scanning upwards (along the y-axis), then update the xmin(y) column
+\item
+  If scanning downwards (along the y-axis), then update the xmax(y) column
+\item
+  Use linear interpolation to calculate the x value along each edge
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image34.png}
+\caption{\label{fig:edgelist}Structure of the EdgeList object which holds the min and max x-values for a given y value}
+\end{figure}
+
+\hypertarget{multiple-polygons}{%
+\subsection{Multiple polygons}\label{multiple-polygons}}
+
+What happens if two polygons intersect i.e.~one polygon is in front of the other? In this case only the pixels of the closer polygon need to be rendered (lower z-coordinate), to do this the z-coordinate for each pixel needs to be worked out.
+
+The \texttt{EdgeList} object must now store additional information, to retrieve the z-coordinate for a given x and y.
+
+\begin{itemize}
+\tightlist
+\item
+  xmin(y) for the polygon edge
+\item
+  xmax(y) for the polygon edge
+\item
+  z{[}x, y{]} for every pixel
+\end{itemize}
+
+If a pixel occurs on multiple polygons only render the polygon where it has the smallest z value.
+
+\hypertarget{render-with-edge-list-and-z-buffer}{%
+\subsection{Render with Edge List and Z-Buffer}\label{render-with-edge-list-and-z-buffer}}
+
+Compute the \texttt{EdgeList} for the x and z coordinates for the vertices on the polygon edges
+
+\begin{itemize}
+\tightlist
+\item
+  Compute the z value of a pixel inside the polygon using another linear interpolation
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{img/08-image35.png}
+\caption{\label{fig:z-value}Interpolate the z coordinate for each pixel using linear interpolation}
+\end{figure}
+
+\hypertarget{pseudocode-1}{%
+\subsubsection{Pseudocode}\label{pseudocode-1}}
+
+\hypertarget{parse}{%
+\chapter{Parsing}\label{parse}}
+
+\hypertarget{structured-text}{%
+\section{Structured Text}\label{structured-text}}
+
+What makes the following texts structured?
+
+\begin{itemize}
+\tightlist
+\item
+  SQL schema query
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{DELETE} \KeywordTok{FROM}\NormalTok{ DomesticStudents2018}
+\KeywordTok{WHERE}\NormalTok{ grade }\OperatorTok{=} \StringTok{\textquotesingle{}E\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Java statement
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{while}\NormalTok{ (A[i] != x) \{}
+\NormalTok{  k++;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  XML documents
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{\textless{}html\textgreater{}\textless{}head\textgreater{}\textless{}title\textgreater{}}\NormalTok{My Web Page}\KeywordTok{\textless{}/title\textgreater{}\textless{}/head\textgreater{}}
+\KeywordTok{\textless{}body\textgreater{}\textless{}p\textgreater{}}\NormalTok{ Thanks for viewing }\KeywordTok{\textless{}/p\textgreater{}\textless{}/body\textgreater{}\textless{}/html\textgreater{}}
+\end{Highlighting}
+\end{Shaded}
+
+Text is structured if it can be described using a grammar. A grammar consists of a set of rules:
+
+\begin{itemize}
+\tightlist
+\item
+  The rules describe how to form strings from the language's alphabet that are valid according to the language's syntax
+\item
+  However, a grammar does not describe the meaning of the strings or what can be done with them in whatever context - only their form.
+\end{itemize}
+
+\hypertarget{defining-a-grammar}{%
+\section{Defining a Grammar}\label{defining-a-grammar}}
+
+A grammar is a finite description of a possible infinite set of acceptable sentences. One of the simplest existing grammars are regular expressions (regex).
+
+\hypertarget{representing-a-language-through-regex}{%
+\subsection{Representing a Language Through Regex}\label{representing-a-language-through-regex}}
+
+An example language defined only using regex consists of the following rules:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Words can only consist of the letters a \& b
+\item
+  the letter a cannot follow the letter b
+\end{enumerate}
+
+These rules mean the following strings are {legal}: a, ab, aaa, aab, aaaaaabbbbbbb, b, bbb, \ldots{}\\
+While these strings are {illegal}: ba, aba, abba, bbbbbbaaaaa
+
+A very condensed way of representing the above rule is through the following regex \texttt{a*b*}. The regex is finite even though the set of legal values can be infinite.
+
+Rather than defining grammars regex is more commonly used in pattern matching. See the below table:
+
+\begin{table}
+
+\caption{\label{tab:regex-patterns}A subset of regex patterns and their meanings}
+\centering
+\begin{tabular}[t]{ll}
+\toprule
+Pattern & Meaning\\
+\midrule
+abc & Matches 'abc'\\
+a|e|i|i|u & Matches one of a, e, i, o, u\\
+. & Metacharater, meaning any character\\
+[0-9] & Numerals\\
+[a-z] & Letters (lowercase)\\
+\addlinespace
+\textbackslash{}\textbackslash{}d & Digit\\
+\textbackslash{}\textbackslash{}w & Whitespace\\
+* & Any number of\\
++ & At least one of\\
+? & Optional\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+There are numerous online resources for learning about regex:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://regexone.com/}{Regex One}
+\item
+  \href{http://web.mit.edu/6.005/www/fa16/classes/17-regex-grammars/}{Regex grammar}
+\item
+  \href{https://regexone.com/references/java}{Java}
+\end{itemize}
+
+\hypertarget{regular-expressions-in-java}{%
+\subsubsection{Regular Expressions in Java}\label{regular-expressions-in-java}}
+
+In Java, to perform the pattern matching on an input string, The Java compiler, \texttt{javac} turns the regex into a finite state machine, known as an Acceptor. A graph data structure can be used to represent FSM where the nodes correspond to states and the edges to transitions in the FSM. Creating this graph is a complex and computationally expensive process\footnote{Here is a link to a video explaining the \href{https://www.youtube.com/watch?v=GwsU2LPs85U}{process}}.
+
+Pattern matching on a string can be performed in the following way in Java:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{import}\ImportTok{ java.util.regex.*;}
+
+\DataTypeTok{boolean}\NormalTok{ b = }\BuiltInTok{Pattern}\NormalTok{.}\FunctionTok{matches}\NormalTok{(}\StringTok{"a*b"}\NormalTok{, }\StringTok{"aaaaaab"}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+This combines the generation of the FSM (first argument) and its use on the particular string (second argument). Building the FSM graph\footnote{Through Thompson's construction algorithm} is expensive. So if you need to match the same pattern of many strings it's better to construct the pattern instance and match it to a string in the following way:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{Pattern}\NormalTok{ p = }\BuiltInTok{Pattern}\NormalTok{.}\FunctionTok{compile}\NormalTok{(}\StringTok{"a*b"}\NormalTok{);}
+\BuiltInTok{Matcher}\NormalTok{ m = p.}\FunctionTok{matcher}\NormalTok{(}\StringTok{"aaaaaab"}\NormalTok{);}
+\DataTypeTok{boolean}\NormalTok{ b = }\FunctionTok{matches}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+The same pattern instance can be reused on multiple strings in the following way:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{for}\NormalTok{ (var input : inputs) \{}
+  \BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(p.}\FunctionTok{matcher}\NormalTok{(input).}\FunctionTok{matches}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{examples-of-the-acceptor-graph}{%
+\subsubsection{Examples of the Acceptor graph}\label{examples-of-the-acceptor-graph}}
+
+\begin{figure}
+\includegraphics[width=0.6\linewidth,height=0.6\textheight]{img/09-image01} \caption{The Acceptor graph for patterns like a+b+ and aa*bb*}\label{fig:acceptor1}
+\end{figure}
+
+Node S represents the starting state and the double circle in the final node int the above to graph represents the accepting state. The \texttt{*} and \texttt{+} meta-characters are represented by the two looping edges.
+
+\begin{figure}
+\includegraphics[width=0.6\linewidth,height=0.6\textheight]{img/09-image02} \caption{The Acceptor graph for patterns like a*b+ and a+|b+}\label{fig:acceptor2}
+\end{figure}
+
+The two edges from Node S indicates that Node A is optional.
+
+\hypertarget{representing-a-language-through-a-grammar}{%
+\subsection{Representing a Language Through a Grammar}\label{representing-a-language-through-a-grammar}}
+
+A grammar describes how to form strings from a language's alphabet that are valid according to the language's syntax. A grammar does not describe the meaning of the strings or what can be done with them in whatever context - only their form.
+
+A formal grammar is a set of rules for rewriting strings, along with a start symbol from which the rewriting starts.
+
+For example assume the alphabet consists of the letters a and b, the start symbol is S, and we have the following rules\footnote{this is the same as the regex a+b+}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  S -\textgreater{} aA
+\item
+  A -\textgreater{} aA \textbar{} bB
+\item
+  B -\textgreater{} bB \textbar{} end
+\end{enumerate}
+
+Given we start with S, we can apply rule 1 to it, replacing S and obtaining the string aA. Afterwards we can only apply rule 2 to the resultant string; rule 2 consists of two choices to, we can replace A with aA or with bB. If we take the second choice, we obtain abB. From this point we can then choose to either finish or reapply bB to the string. If the first choice is selected then the final string is ab.
+
+\hypertarget{context-free-grammar}{%
+\section{Context-Free Grammar}\label{context-free-grammar}}
+
+The rules in a grammar are made up of two kinds of symbols, terminals and nonterminals. Terminals are also known as tokens; they are literal strings or characters and are not defined as part of the rules of the grammars. Nontermimals are elements of the grammar that are not part of the text and are defined by the rules of the grammar.
+
+A simple html grammar:
+
+{HTMLFILE} ::= ``{\textless html\textgreater{}}'' {[}{HEAD}{]} {BODY} ``{\textless/html\textgreater{}}''\\
+{HEAD} ::= ``{\textless head\textgreater{}}'' {TITLE} ``{\textless/head\textgreater{}}''\\
+{TITLE} ::= ``{\textless title\textgreater{}}'' {TEXT} ``{\textless/title\textgreater{}}''\\
+{BODY} ::= ``{\textless body\textgreater{}}'' {[}{BODYTAG}{]}* ``{\textless/body\textgreater{}}''\\
+{BODYTAG} ::= {H1TAG} \textbar{} {PTAG} \textbar{} {OLTAG} \textbar{} {ULTAG}\\
+{H1TAG} ::= ``{\textless h1\textgreater{}}'' {TEXT} ``{\textless/h1\textgreater{}}''\\
+{PTAG} ::= ``\textless p\textgreater{}'' {TEXT} ``{\textless/p\textgreater{}}''\\
+{OLTAG} ::= ``{\textless ol\textgreater{}}'' {[}{LITAG}{]}+ ``{\textless/ol\textgreater{}}''\\
+{ULTAG} ::= ``{\textless ul\textgreater{}}'' {[}{LITAG}{]}+ ``{\textless/ul\textgreater{}}''\\
+{LITAG} ::= ``{\textless li\textgreater{}}'' {TEXT} ``{\textless/li\textgreater{}}''\\
+{TEXT} ::= sequence of characters other than \textless{} and \textgreater{}
+
+In the above example the terminal strings or tokens are in {blue} and the {nonterminals} are highlighted in {green}. The {HTMLFILE} is the top level/starting nonterminal (usually defined first in a grammar). Just like in regex special meta-characters are used to define the grammar:
+
+\begin{tabular}{ll}
+\toprule
+Meta.character & Meaning\\
+\midrule
+| & Or\\
+[NT\textbackslash{}] & Optional\\
+[NT]* & Any number of times\\
+[NT]+ & More than once\\
+\bottomrule
+\end{tabular}
+
+\hypertarget{parsing-text-from-raw-input}{%
+\subsection{Parsing Text from Raw Input}\label{parsing-text-from-raw-input}}
+
+Given some raw text and a grammar the following prerequisite must be met before the text can be parsed:
+
+\begin{itemize}
+\tightlist
+\item
+  The text needs to be broken into a sequence of tokens. This is termed {lexing}
+\end{itemize}
+
+The grammar can then be used to parse the token sequence. Parsing could mean one of two things:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Validating the text against the grammar rules
+\item
+  Constructing the parse tree for the text
+\end{enumerate}
+
+\hypertarget{breaking-inputs-into-tokens}{%
+\subsubsection{Breaking inputs into tokens}\label{breaking-inputs-into-tokens}}
+
+A simple approach to breaking the input into tokens involves defining a delimiter that can be used to split the text into the tokens. In java the \texttt{Scanner} class can be supplied with a delimiter to break the sequence of characters up; the delimiter can be a Java regular expression or something simple as the whitespace character (which couldn't be used to separate the tokens out in html). Text that matches to the delimiter will not be returned in tokens
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \FunctionTok{parse}\NormalTok{(}\BuiltInTok{String}\NormalTok{ input) \{}
+  \BuiltInTok{String}\NormalTok{ delimiter = }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{s*(?=\textless{})|(?\textless{}=\textgreater{})}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{s*"}\NormalTok{;}
+  \BuiltInTok{Scanner}\NormalTok{ s = }\KeywordTok{new} \BuiltInTok{Scanner}\NormalTok{(input)}
+\NormalTok{    .}\FunctionTok{useDelimiter}\NormalTok{(delimiter)}
+  \KeywordTok{if}\NormalTok{ (}\FunctionTok{parseExpr}\NormalTok{(s)) }
+    \BuiltInTok{System}\NormalTok{.}\FunctionTok{out}\NormalTok{.}\FunctionTok{println}\NormalTok{(}\StringTok{"Valid Expression"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The above delimiter \texttt{\textbackslash{}\textbackslash{}s*(?=\textless{})\textbar{}(?\textless{}=\textgreater{})\textbackslash{}\textbackslash{}s} is a complicate regex (the details are not examinable) and is compatible with the HTML grammar.
+
+\begin{itemize}
+\tightlist
+\item
+  Spaces are separator characters that are not part of the tokens, and the delimiter excludes them. The spaces are used to separate the terminals
+\item
+  Tokens are also delimited at the \texttt{\textless{}} and \texttt{\textgreater{}} characters, but these remain as tokens.
+\end{itemize}
+
+Given:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{\textless{}html\textgreater{}\textless{}head\textgreater{}\textless{}title\textgreater{}}\NormalTok{ Something }\KeywordTok{\textless{}/title\textgreater{}\textless{}/head\textgreater{}}
+\KeywordTok{\textless{}body\textgreater{}} \KeywordTok{\textless{}h1\textgreater{}}\NormalTok{ My Header }\KeywordTok{\textless{}/h1\textgreater{}}
+\KeywordTok{\textless{}ul\textgreater{}\textless{}li\textgreater{}}\NormalTok{ Item 1 }\KeywordTok{\textless{}/li\textgreater{}\textless{}li\textgreater{}}\NormalTok{ Item 42 }\KeywordTok{\textless{}/li\textgreater{}\textless{}/ul\textgreater{}}
+\KeywordTok{\textless{}p\textgreater{}}\NormalTok{ Something really important }\KeywordTok{\textless{}/p\textgreater{}}
+\KeywordTok{\textless{}/body\textgreater{}}
+\KeywordTok{\textless{}/html\textgreater{}}
+\end{Highlighting}
+\end{Shaded}
+
+The previously defined \texttt{Scanner} object would separate this input into the following tokens:
+
+\begin{verbatim}
+<html>
+<head>
+<title> 
+Something 
+</title>
+</head>
+<body>
+<h1>
+My
+Header
+</h1>
+<ul>
+<li> 
+Item 
+1 
+</li>
+<li>
+Item 
+42 
+</li>
+</ul>
+<p> 
+Something 
+really 
+important 
+</p>
+</body>
+</html>
+\end{verbatim}
+
+Defining delimiters can be very tricky, some languages are straightforward e.g.~Lisp, HTML, XML as they are designed to be so. Rather than defining a pattern to match to the separators lexing can be easier if you define a pattern to match to the tokens
+
+\begin{itemize}
+\tightlist
+\item
+  Make a method that will search for and return the next token. based on the token pattern
+\item
+  The pattern is made from the combination of patterns for each kind of token
+\item
+  The patterns can be regular expressions
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Use an Acceptor automaton to match / recognize them
+  \end{itemize}
+\end{itemize}
+
+There are a number of existing tools for lexing \href{http://en.wikipedia.org/wiki/Lexical_analysis}{easier}. Now lets use the lexer and grammar to parse the following:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{\textless{}html\textgreater{}\textless{}head\textgreater{}\textless{}title\textgreater{}}\NormalTok{Today}\KeywordTok{\textless{}/title\textgreater{}\textless{}/head\textgreater{}}
+\KeywordTok{\textless{}body\textgreater{}} \KeywordTok{\textless{}h1\textgreater{}}\NormalTok{My Day}\KeywordTok{\textless{}/h1\textgreater{}}
+\KeywordTok{\textless{}ul\textgreater{}\textless{}li\textgreater{}}\NormalTok{meeting}\KeywordTok{\textless{}/li\textgreater{}\textless{}li\textgreater{}}\NormalTok{lecture}\KeywordTok{\textless{}/li\textgreater{}\textless{}/ul\textgreater{}}
+\KeywordTok{\textless{}p\textgreater{}}\NormalTok{parsing stuff}\KeywordTok{\textless{}/p\textgreater{}}
+\KeywordTok{\textless{}/body\textgreater{}}
+\KeywordTok{\textless{}/html\textgreater{}}
+\end{Highlighting}
+\end{Shaded}
+
+Is the above input a valid piece of HTML - does it conform to the grammar rules. What is the structure needed to analyse the input and answer the question:
+
+\begin{itemize}
+\tightlist
+\item
+  What are the components
+\item
+  What types are the components
+\item
+  How are they related
+\end{itemize}
+
+\hypertarget{parse-trees}{%
+\section{Parse Trees}\label{parse-trees}}
+
+Text that conforms to the simple HTML grammar has a tree structure (nonterminals are defined hierarchically).
+
+\begin{itemize}
+\tightlist
+\item
+  The tree is ordered as the order of the children is significant
+\item
+  Each node in the tree and its children correspond to a grammar rule
+\item
+  Each internal node is labeled by the nonterminal on the LHS of the rule
+\item
+  Leaf nodes correspond to terminals
+\end{itemize}
+
+A {concrete parse tree} represents the syntactic structure of input string according to the formal grammar, showing all components of the rules.
+
+\begin{figure}
+\includegraphics[width=0.6\linewidth,height=0.6\textheight]{img/09-image03} \caption{A concrete parse tree of an input string}\label{fig:parse-tree}
+\end{figure}
+
+Concrete parse trees are very dense and contain lots of information. However not all of that information is meaningful or necessary. For example we know from the grammar rules that every \texttt{HEAD} nonterminal will contain the ``\textless head\textgreater{}'' and ``\textless/head\textgreater{}'' terminals, we only care what \texttt{TITLE} there is as this is the only unknown/variable component.
+
+An {abstract syntax tree (AST)} is a tree representation of the abstract syntactic structure of the text. The syntax in the AST is `abstract' in that it does not represent everything in the full syntax.
+
+\begin{itemize}
+\tightlist
+\item
+  It doesn't contain elements of the rules that are not essential to the structure
+\end{itemize}
+
+\begin{figure}
+\includegraphics[width=0.6\linewidth,height=0.6\textheight]{img/09-image04} \caption{An abstract syntax tree of the input string. It excludes the already known terminals}\label{fig:syntax-tree}
+\end{figure}
+
+\hypertarget{implementation}{%
+\subsection{Implementation}\label{implementation}}
+
+The process of getting from the input string to the parse tree consists of two steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Lexing -\textgreater{} Separating the sequence of characters into tokens.
+\item
+  Parsing -\textgreater{} Transforming the sequence of tokens into a AST
+\end{enumerate}
+
+We know the lexing step can done through the \texttt{Scanner} class and regex. While parsing can be accomplished through recursion.
+
+\hypertarget{top-down-resursive-descent-parser}{%
+\subsubsection{Top Down Resursive Descent Parser}\label{top-down-resursive-descent-parser}}
+
+A recursive descent parser generally consist of a set of recursive functions (or methods) each corresponding to a specific nonterminal. The job of the specific method is to read in all tokens for that nonterminal.\\
+In order to do that the parser must be able to decide which nonterminal the token corresponds to. The parser should return an exception if the token is missing or does not match to any allowable tokens and this requires the grammar rules to be highly constrained i.e.~{ always able to choose the next path given the current state and the next token}
+
+\begin{itemize}
+\tightlist
+\item
+  Naive Top Down Recursive Descent Parser
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Have a method corresponding to each nonterminal rule that calls other nonterminal methods for each nonterminal token and calls a scanner for each terminal token
+  \end{itemize}
+\end{itemize}
+
+For example using the grammar:
+
+\begin{verbatim}
+FOO ::= "a" BAR | "b" BAZ
+BAR ::= ...
+\end{verbatim}
+
+The parser would have the method:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{public} \DataTypeTok{boolean} \FunctionTok{parseFOO}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ s) \{}
+  \KeywordTok{if}\NormalTok{ (!}\FunctionTok{hasNext}\NormalTok{())}
+    \KeywordTok{return} \KeywordTok{false}\NormalTok{; }\CommentTok{// PARSE ERROR}
+  \BuiltInTok{String}\NormalTok{ token = s.}\FunctionTok{next}\NormalTok{();  }
+  \KeywordTok{if}\NormalTok{ (token.}\FunctionTok{equals}\NormalTok{(}\StringTok{"a"}\NormalTok{))}
+    \KeywordTok{return} \FunctionTok{parseBAR}\NormalTok{(s;)}
+  \KeywordTok{else} \KeywordTok{if}\NormalTok{ (token.}\FunctionTok{equals}\NormalTok{(}\StringTok{"b"}\NormalTok{))}
+    \KeywordTok{return} \FunctionTok{parseBAZ}\NormalTok{(s); }
+  \KeywordTok{return} \KeywordTok{false}\NormalTok{; }\CommentTok{// PARSE ERROR}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The simple HTML grammar that has been defined goes beyond the regular grammar used by regex to what are called context free grammars (CFG). Regular grammars can't do nesting, but CFG can.
+
+E.g. can you write a regex for a language that includes the following (legal) inputs:
+
+\begin{verbatim}
+(x) ((x)) (((x))) ((((x)))) ....
+\end{verbatim}
+
+You could write a regular grammar for specific cases, but not for the general pattern matching the number of brackets. A CFG can do it though:
+
+\begin{verbatim}
+EXPR ::= x | "(" EXPR ")"
+\end{verbatim}
+
+The above grammar is recursive. How about defining the grammar for the following FSM:
+
+\includegraphics{img/09-image05.png}
+
+Intuitively a stack would be needed to parse such a structure. The following CFG can do this (it's recursive, hence will use a stack)
+
+\begin{verbatim}
+EXPR ::= "a" "b" | "a" EXPR "b"
+\end{verbatim}
+
+See, for further reading on \href{http://web.mit.edu/6.005/www/fa16/classes/17-regex-grammars/}{grammars}. We will develop a parser for different goals:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Check a string for compliance
+\item
+  Returning the complete parse tree
+\item
+  Returning the AST
+\end{enumerate}
+
+The below grammar will be used to demonstrate the development of the parser:
+
+\begin{verbatim}
+Expr ::= Num | Add | Sub | Mul | Div
+Add ::= "add" "(" Expr "," Expr ")"
+Sub ::= "sub" "(" Expr "," Expr ")"
+Mul ::= "mul" "(" Expr "," Expr ")"
+Div ::= "div" "(" Expr "," Expr ")"
+Num ::= an optional sign followed by a sequence of digits: [-+]?[0-9]+
+\end{verbatim}
+
+Lets try parsing the following expression \texttt{mul(sub(mul(65,74),add(68,25)),add(div(5,3)15))}
+
+\begin{figure}
+\centering
+\includegraphics{img/09-image06.png}
+\caption{\label{fig:example-cpt}The concrete parse tree}
+\end{figure}
+
+Algorithm
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Build a set of mutually-recursive functions/methods, based on the rules in the grammar.
+\item
+  One function for each nonterminal
+\item
+  Decide which branch to follow based on the next input token
+\item
+  Within the branch, test for each terminal/nonterminal token.
+\item
+  Fail if the expected token is missing or no option is available
+\item
+  Return a boolean if you're just checking the string for compliance or the parse tree if you are creating it.
+\end{enumerate}
+
+The above algorithm will only work if you can choose the next path to follow based on the current token and the next token.
+
+E.g. To parse the expression \texttt{"add(-5,\ sub(50,50),4)"}, the first token is ``add'' so the \texttt{parseAdd()} function should be called. However \texttt{parseAdd()} will need to check for the token ``add'', so we need to be able to peek at the top token without removing it from the top of the \texttt{Scanner}
+
+\hypertarget{peek-at-the-next-token}{%
+\subsubsection{Peek at the Next Token}\label{peek-at-the-next-token}}
+
+Java's \texttt{Scanner} class is able to peek at the next token in order to work out which branch to take, but not consume the next token. The \texttt{Scanner} class has two \texttt{hasNext} methods:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{sc.hasNext()}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Is there another token in the scanner?
+  \end{itemize}
+\item
+  \texttt{sc.hasNext("string\ to\ match")}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Is there another token, and does it match the string passed in as the argument?
+  \end{itemize}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"add"}\NormalTok{)) \{}
+\NormalTok{ ...}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The second form of \texttt{hasNext} can be used to peek and check the next token. The string that is passed can also be a regex.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"[{-}+]?[0{-}9]+"}\NormalTok{)) \{}
+\NormalTok{ ...}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+true if the next token is an integer
+
+\hypertarget{parsing-expressions---checking-a-string-complies-to-the-grammar-rules}{%
+\section{Parsing Expressions - Checking a string Complies to the Grammar Rules}\label{parsing-expressions---checking-a-string-complies-to-the-grammar-rules}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// Have to choose one branch to follow}
+\CommentTok{// Passes if at least one rule is true}
+\DataTypeTok{boolean} \FunctionTok{parseExpr}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{ }
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"[{-}+]?[0{-}9]+"}\NormalTok{)) \{}
+\NormalTok{    sc.}\FunctionTok{next}\NormalTok{();}
+    \KeywordTok{return} \KeywordTok{true}\NormalTok{;}
+\NormalTok{  \}}
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"add"}\NormalTok{))}
+    \KeywordTok{return} \FunctionTok{parseAdd}\NormalTok{(sc);}
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"sub"}\NormalTok{))}
+    \KeywordTok{return} \FunctionTok{parseSub}\NormalTok{(sc); }
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"mul"}\NormalTok{))}
+    \KeywordTok{return} \FunctionTok{parseMul}\NormalTok{(sc);}
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"div"}\NormalTok{))}
+    \KeywordTok{return} \FunctionTok{parseDiv}\NormalTok{(sc);}
+  \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+\NormalTok{\}}
+\CommentTok{// All branches must be checked }
+\CommentTok{// Fails if any branch fails}
+\DataTypeTok{boolean} \FunctionTok{parseAdd}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+   \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"add"}\NormalTok{))}
+\NormalTok{    sc.}\FunctionTok{next}\NormalTok{();}
+   \KeywordTok{else}
+    \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+   \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"("}\NormalTok{))}
+\NormalTok{    sc.}\FunctionTok{next}\NormalTok{();}
+   \KeywordTok{else}
+    \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+   \KeywordTok{if}\NormalTok{ (!}\FunctionTok{parseExpr}\NormalTok{(sc))}
+    \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+   \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{","}\NormalTok{))}
+\NormalTok{    sc.}\FunctionTok{next}\NormalTok{();}
+   \KeywordTok{else}
+    \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+   \KeywordTok{if}\NormalTok{ (!}\FunctionTok{parseExpr}\NormalTok{(sc))}
+    \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{")"}\NormalTok{))}
+\NormalTok{    sc.}\FunctionTok{next}\NormalTok{();}
+   \KeywordTok{else}
+    \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+   \KeywordTok{return} \KeywordTok{true}\NormalTok{;}
+\NormalTok{\} }
+\end{Highlighting}
+\end{Shaded}
+
+The functions \texttt{parseSub}, \texttt{parseMul} and \texttt{parseDiv} will follow along from \texttt{parseAdd}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{boolean} \FunctionTok{parseSub}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+   \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"sub"}\NormalTok{))       }\CommentTok{// Only difference from parseAdd}
+\NormalTok{    sc.}\FunctionTok{next}\NormalTok{();}
+   \KeywordTok{else}
+    \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+   \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"("}\NormalTok{))}
+\NormalTok{    sc.}\FunctionTok{next}\NormalTok{();}
+   \KeywordTok{else}
+    \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+   \KeywordTok{if}\NormalTok{ (!}\FunctionTok{parseExpr}\NormalTok{(sc))}
+    \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+   \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{","}\NormalTok{))}
+\NormalTok{    sc.}\FunctionTok{next}\NormalTok{();}
+   \KeywordTok{else}
+    \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+   \KeywordTok{if}\NormalTok{ (!}\FunctionTok{parseExpr}\NormalTok{(sc))}
+    \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+   \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{")"}\NormalTok{))}
+\NormalTok{    sc.}\FunctionTok{next}\NormalTok{();}
+   \KeywordTok{else}
+    \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+   \KeywordTok{return} \KeywordTok{true}\NormalTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+This means the implementation can be substantially simplified due to the similarity of the Add, Sub, Mul and Div methods:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{boolean} \FunctionTok{parseExpr}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+ \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"[{-}+]?[0{-}9]+"}\NormalTok{)) \{}
+\NormalTok{    sc.}\FunctionTok{next}\NormalTok{();}
+    \KeywordTok{return} \KeywordTok{true}\NormalTok{;}
+\NormalTok{  \}}
+ \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"add|sub|mul|div"}\NormalTok{))}
+\NormalTok{   sc.}\FunctionTok{next}\NormalTok{();}
+ \KeywordTok{else}
+   \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+ \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"("}\NormalTok{))}
+\NormalTok{    sc.}\FunctionTok{next}\NormalTok{();}
+ \KeywordTok{else}
+   \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+ \KeywordTok{if}\NormalTok{ (!}\FunctionTok{parseExpr}\NormalTok{(sc))}
+   \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+ \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{","}\NormalTok{))}
+\NormalTok{   sc.}\FunctionTok{next}\NormalTok{();}
+ \KeywordTok{else}
+   \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+ \KeywordTok{if}\NormalTok{ (!}\FunctionTok{parseExpr}\NormalTok{(sc))}
+   \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+ \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{")"}\NormalTok{))}
+\NormalTok{   sc.}\FunctionTok{next}\NormalTok{();}
+ \KeywordTok{else}
+   \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+ \KeywordTok{return} \KeywordTok{true}\NormalTok{;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+This change amounts to refactoring the grammar to have the following rules:
+
+\begin{verbatim}
+Expr ::= Num | Op "(" Expr "," Expr ")"
+Op ::= "add" | "sub" | "mul" | "div"
+Num ::= [-+]?[0-9]+
+\end{verbatim}
+
+Further simplification can be achieved by reducing duplication by reusing the pattern that checks for terminals
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{boolean} \FunctionTok{parseExpr}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"[{-}+]?[0{-}9]+"}\NormalTok{)) \{}
+\NormalTok{    sc.}\FunctionTok{next}\NormalTok{();}
+    \KeywordTok{return} \KeywordTok{true}\NormalTok{;}
+\NormalTok{  \}}
+  \FunctionTok{require}\NormalTok{(sc, }\StringTok{"add|sub|mul|div"}\NormalTok{);}
+  \FunctionTok{require}\NormalTok{(sc, }\StringTok{"("}\NormalTok{);}
+  \KeywordTok{if}\NormalTok{ (!}\FunctionTok{parseExpr}\NormalTok{(sc))}
+    \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+  \FunctionTok{require}\NormalTok{(sc, }\StringTok{","}\NormalTok{);}
+  \KeywordTok{if}\NormalTok{ (!}\FunctionTok{parseExpr}\NormalTok{(sc))}
+    \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+  \FunctionTok{require}\NormalTok{(sc, }\StringTok{")"}\NormalTok{);}
+  \KeywordTok{return} \KeywordTok{true}\NormalTok{;}
+\NormalTok{\}}
+
+\CommentTok{// Consume the next token and return true if matches pattern, else false}
+\DataTypeTok{boolean} \FunctionTok{require}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc, }\BuiltInTok{String}\NormalTok{ pattern) \{}
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(pattern)) \{}
+\NormalTok{    sc.}\FunctionTok{next}\NormalTok{();}
+    \KeywordTok{return} \KeywordTok{true}\NormalTok{;}
+\NormalTok{  \}}
+  \CommentTok{// Print an error message}
+  \KeywordTok{return} \KeywordTok{false}\NormalTok{;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Further efficiencies can be realised by pre-compiling the regex patterns. Giving good names to the specific patterns can make the program easier to understand
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{Pattern}\NormalTok{ numPattern = }\BuiltInTok{Pattern}\NormalTok{.}\FunctionTok{compile}\NormalTok{(}\StringTok{"[{-}+]?(}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d+([.]}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d*)?|[.]}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d+)"}\NormalTok{);}
+\BuiltInTok{Pattern}\NormalTok{ addPattern = }\BuiltInTok{Pattern}\NormalTok{.}\FunctionTok{compile}\NormalTok{(}\StringTok{"add"}\NormalTok{);}
+\BuiltInTok{Pattern}\NormalTok{ subPattern = }\BuiltInTok{Pattern}\NormalTok{.}\FunctionTok{compile}\NormalTok{(}\StringTok{"sub"}\NormalTok{);}
+\BuiltInTok{Pattern}\NormalTok{ mulPattern = }\BuiltInTok{Pattern}\NormalTok{.}\FunctionTok{compile}\NormalTok{(}\StringTok{"mul"}\NormalTok{);}
+\BuiltInTok{Pattern}\NormalTok{ divPattern = }\BuiltInTok{Pattern}\NormalTok{.}\FunctionTok{compile}\NormalTok{(}\StringTok{"div"}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{parsing-expressions---constructing-the-concrete-parse-tree}{%
+\section{Parsing Expressions - Constructing the Concrete Parse Tree}\label{parsing-expressions---constructing-the-concrete-parse-tree}}
+
+Rather than just checking that the input is, you can construct and return the parse tree i.e.~for the expression `add(sub(10, -5), 45)
+
+\includegraphics{img/09-image07.png}
+
+To do this you {each parse method} return a tree node, instead of a \texttt{boolean}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{Node} \FunctionTok{parseExpr}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc)}
+\BuiltInTok{Node} \FunctionTok{parseNum}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc)}
+\BuiltInTok{Node} \FunctionTok{parseAdd}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc)}
+\BuiltInTok{Node} \FunctionTok{parseSub}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc)}
+\BuiltInTok{Node} \FunctionTok{parseMul}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc)}
+\BuiltInTok{Node} \FunctionTok{parseDiv}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc)}
+\end{Highlighting}
+\end{Shaded}
+
+There are two options for the parse trees data structure:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Have a node class for each rule i.e.~the parse expressions will return a sub-type of the \texttt{Node} super-type:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{ExpressionNode}: For a \texttt{NumberNode} or \texttt{OperatorNode}
+\item
+  \texttt{OperatorNode}: For the Add/Sub/Mul/Div nonterminals. This node will store the operator, ``('', first expression, ``,'' second expression and the ``)'' character
+\item
+  \texttt{NumberNode}: Will contain the numeric value and the sign
+\item
+  \texttt{TerminalNode}: Will contain the string
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Have a general tree, with a label at each node and a list of children.
+\end{enumerate}
+
+\hypertarget{data-structure-option-one}{%
+\subsection{Data Structure: Option one}\label{data-structure-option-one}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{interface} \BuiltInTok{Node}\NormalTok{ \{\}}
+
+\KeywordTok{class}\NormalTok{ ExpressionNode }\KeywordTok{implements} \BuiltInTok{Node}\NormalTok{ \{}
+  \DataTypeTok{final} \BuiltInTok{Node}\NormalTok{ child;}
+  \KeywordTok{public} \FunctionTok{ExpressionNode}\NormalTok{(}\BuiltInTok{Node}\NormalTok{ child) \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{child}\NormalTok{ = ch;}
+\NormalTok{  \}}
+  \KeywordTok{public} \BuiltInTok{String} \FunctionTok{toString}\NormalTok{() \{}
+    \KeywordTok{return} \StringTok{"["}\NormalTok{ + child + }\StringTok{"]"}\NormalTok{; }\CommentTok{// Brackets added to show structure}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\KeywordTok{class}\NormalTok{ NumberNode }\KeywordTok{implements} \BuiltInTok{Node}\NormalTok{ \{}
+  \DataTypeTok{final} \DataTypeTok{int}\NormalTok{ value;}
+  \KeywordTok{public} \FunctionTok{NumberNode}\NormalTok{(}\DataTypeTok{int}\NormalTok{ value) \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{value}\NormalTok{ = value;}
+\NormalTok{  \}}
+  \KeywordTok{public} \BuiltInTok{String} \FunctionTok{toString}\NormalTok{() \{}
+    \KeywordTok{return}\NormalTok{ value; }
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\KeywordTok{class}\NormalTok{ TerminalNode }\KeywordTok{implements} \BuiltInTok{Node}\NormalTok{ \{}
+  \DataTypeTok{final} \BuiltInTok{String}\NormalTok{ value;}
+  \KeywordTok{public} \FunctionTok{TerminalNode}\NormalTok{(}\BuiltInTok{String}\NormalTok{ value) \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{value}\NormalTok{ = value;}
+\NormalTok{  \}}
+  \KeywordTok{public} \BuiltInTok{String} \FunctionTok{toString}\NormalTok{() \{}
+    \KeywordTok{return}\NormalTok{ value; }
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\KeywordTok{class}\NormalTok{ AddNode }\KeywordTok{implements} \BuiltInTok{Node}\NormalTok{ \{}
+  \DataTypeTok{final} \BuiltInTok{List}\NormalTok{\textless{}}\BuiltInTok{Node}\NormalTok{\textgreater{} children;}
+  \KeywordTok{public} \FunctionTok{AddNode}\NormalTok{(}\BuiltInTok{List}\NormalTok{\textless{}}\BuiltInTok{Node}\NormalTok{\textgreater{} children) \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{children}\NormalTok{ = children;}
+\NormalTok{  \}}
+  \KeywordTok{public} \BuiltInTok{String} \FunctionTok{toString}\NormalTok{() \{}
+    \BuiltInTok{String}\NormalTok{ result = }\StringTok{"["}\NormalTok{;}
+    \KeywordTok{for}\NormalTok{ (var node : children) }
+\NormalTok{      result += node.}\FunctionTok{toString}\NormalTok{();}
+    \KeywordTok{return}\NormalTok{ result;}
+\NormalTok{  \}}
+\NormalTok{\}}
+\CommentTok{// SubNode, MulNode, and DivNode are similiar}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{error-handling}{%
+\subsection{Error Handling}\label{error-handling}}
+
+Unlike when the expression was being validated, \texttt{false} cannot be returned to indicate and {handle errors}. The parser must {throw an exception} to signify an error has occurred when parsing the expression. This means each method will return either a valid \texttt{Node}, or throw an \texttt{Exception}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class} \BuiltInTok{ParseException} \KeywordTok{extends} \BuiltInTok{RuntimeException}
+  \KeywordTok{public} \BuiltInTok{ParseException}\NormalTok{(}\BuiltInTok{String}\NormalTok{ errorMessage, }\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+    \BuiltInTok{String}\NormalTok{ message = }\StringTok{"Grammar Parse Error: "}\NormalTok{ + errorMessage + }\StringTok{"@... "}\NormalTok{;}
+    \KeywordTok{for}\NormalTok{ (}\DataTypeTok{int}\NormalTok{ i = }\DecValTok{0}\NormalTok{; i \textless{} }\DecValTok{5}\NormalTok{ \&\& sc.}\FunctionTok{hasNext}\NormalTok{(); i++)}
+\NormalTok{      message += }\StringTok{" "}\NormalTok{ + sc.}\FunctionTok{next}\NormalTok{();}
+    \KeywordTok{super}\NormalTok{(message);}
+\NormalTok{  \}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{building-the-parse-tree}{%
+\subsection{Building the Parse Tree}\label{building-the-parse-tree}}
+
+To create a specific \texttt{Node}, first parse and build it's child/constituent components and then build the specific component i.e.~To create a \texttt{ExpressionNode} build it's child \texttt{NumberNode}/\texttt{AddNode}/\texttt{SubNode}/\texttt{MulNode}/\texttt{DivNode} first.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{Node} \FunctionTok{parseExpr}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+  \KeywordTok{if}\NormalTok{ (!sc.}\FunctionTok{hasNext}\NormalTok{())}
+    \KeywordTok{throw} \KeywordTok{new} \FunctionTok{ParseExpression}\NormalTok{(}\StringTok{"Expression.empty"}\NormalTok{, sc);}
+  
+  \BuiltInTok{Node}\NormalTok{ child = }\KeywordTok{null}\NormalTok{;}
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"[{-}+]?}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d+"}\NormalTok{))}
+\NormalTok{    child = }\FunctionTok{parseNum}\NormalTok{(sc);}
+  \KeywordTok{else} \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"add"}\NormalTok{))}
+\NormalTok{    child = }\FunctionTok{parseAdd}\NormalTok{(sc);}
+  \KeywordTok{else} \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"sub"}\NormalTok{))}
+\NormalTok{    child = }\FunctionTok{parseAdd}\NormalTok{(sc);}
+  \KeywordTok{else} \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"mul"}\NormalTok{))}
+\NormalTok{    child = }\FunctionTok{parseAdd}\NormalTok{(sc);}
+  \KeywordTok{else} \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"div"}\NormalTok{))}
+\NormalTok{    child = }\FunctionTok{parseAdd}\NormalTok{(sc);}
+  
+  \KeywordTok{return} \KeywordTok{new} \FunctionTok{ExpressionNode}\NormalTok{(child);}
+\NormalTok{\}}
+
+\BuiltInTok{Node} \FunctionTok{parseNum}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+  \KeywordTok{if}\NormalTok{ (!sc.}\FunctionTok{hasNext}\NormalTok{(sc)) }
+    \KeywordTok{throw} \KeywordTok{new} \BuiltInTok{ParseException}\NormalTok{(}\StringTok{"Not a Number"}\NormalTok{, sc);}
+  \KeywordTok{return} \KeywordTok{new} \FunctionTok{NumberNode}\NormalTok{(sc.}\FunctionTok{nextInt}\NormalTok{());}
+\NormalTok{\}}
+
+\BuiltInTok{Node} \FunctionTok{parseAdd}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+  \BuiltInTok{List}\NormalTok{\textless{}}\BuiltInTok{Node}\NormalTok{\textgreater{} children = }\KeywordTok{new} \BuiltInTok{ArrayList}\NormalTok{\textless{}\textgreater{}();}
+  \KeywordTok{if}\NormalTok{ (!sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"add"}\NormalTok{))}
+    \KeywordTok{throw} \KeywordTok{new} \BuiltInTok{ParseException}\NormalTok{(}\StringTok{"add.missing"}\NormalTok{, sc);}
+  
+\NormalTok{  children.}\FunctionTok{add}\NormalTok{(}\KeywordTok{new} \FunctionTok{TerminalNode}\NormalTok{(sc.}\FunctionTok{next}\NormalTok{()));}
+  
+  \KeywordTok{if}\NormalTok{ (!sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"("}\NormalTok{)))}
+    \KeywordTok{throw} \KeywordTok{new} \BuiltInTok{ParseException}\NormalTok{(}\StringTok{"(.missing"}\NormalTok{, sc);}
+    
+\NormalTok{  children.}\FunctionTok{add}\NormalTok{(}\FunctionTok{parseExpr}\NormalTok{(sc)); }\CommentTok{// Don\textquotesingle{}t need to check whether parse methods succeed}
+  
+  \KeywordTok{if}\NormalTok{ (!sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{","}\NormalTok{)))}
+    \KeywordTok{throw} \KeywordTok{new} \BuiltInTok{ParseException}\NormalTok{(}\StringTok{",.missing"}\NormalTok{, sc);}
+    
+\NormalTok{  children.}\FunctionTok{add}\NormalTok{(}\FunctionTok{parseExpr}\NormalTok{(sc));}
+    
+   \KeywordTok{if}\NormalTok{ (!sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{")"}\NormalTok{)))}
+    \KeywordTok{throw} \KeywordTok{new} \BuiltInTok{ParseException}\NormalTok{(}\StringTok{").missing"}\NormalTok{, sc);}
+    
+  \KeywordTok{return} \KeywordTok{new} \FunctionTok{AddNode}\NormalTok{(children);}
+\NormalTok{\}}
+
+\CommentTok{// The methods for parsing sub, mul and div nodes are all similiar}
+\end{Highlighting}
+\end{Shaded}
+
+The above methods will create the {concrete syntax tree (CST)}, which contains a lot of redundant information E.g. in the parse tree for the HTML file, we know that every HEAD has ``\textless head\textgreater{}'' and ``\textless/head\textgreater{}'' terminals. We only care about what the TITLE nonterminal is, and then only the unknown string terminal part of the TITLE.
+
+An {abstract syntax tree (AST)} is of greater interest as it only keeps the tokens that are semantically meaningful.
+
+For the expression \texttt{add(add(sub(10,\ -5),\ 45))} the CST is:
+
+\includegraphics{img/09-image08.png}
+
+In comparison, the AST is much more concise:
+
+\includegraphics{img/09-image09.png}
+
+The literal strings such as ``add'', ``,'', ``sub'', ``('', ``)'' are redundant and can be removed. Additionally the \texttt{ExpressionNode} and \texttt{NumberNode} (numeric token is retained) are redundant and are also removed from the CST to form the AST. In fact the \texttt{ExpressionNode} and \texttt{TerminalNode} classes can be removed entirely
+
+However, the \texttt{NumberNode} is unchanged.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{ NumberNode }\KeywordTok{implements} \BuiltInTok{Node}\NormalTok{ \{}
+  \KeywordTok{private} \DataTypeTok{final} \DataTypeTok{int}\NormalTok{ value;}
+  \KeywordTok{public} \FunctionTok{NumberNode}\NormalTok{(}\DataTypeTok{int}\NormalTok{ value) \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{value}\NormalTok{ = value;}
+\NormalTok{  \}}
+  \KeywordTok{public} \FunctionTok{toString}\NormalTok{() \{}\KeywordTok{return} \StringTok{""}\NormalTok{ + value;\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{AddNode} (and \texttt{SubNode}, \ldots) classes become simpler to implement as only the left and right expressions need to kept.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{ AddNode }\KeywordTok{implements} \BuiltInTok{Node}\NormalTok{ \{}
+  \KeywordTok{private} \DataTypeTok{final} \BuiltInTok{Node}\NormalTok{ left, right;}
+  \KeywordTok{public} \FunctionTok{AddNode}\NormalTok{(}\BuiltInTok{Node}\NormalTok{ left, }\BuiltInTok{Node}\NormalTok{ right) \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{left}\NormalTok{ = left;}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{right}\NormalTok{ = right;}
+\NormalTok{  \}}
+  \KeywordTok{public} \FunctionTok{toString}\NormalTok{() \{}
+    \KeywordTok{return} \StringTok{"add("}\NormalTok{ + left + }\StringTok{","}\NormalTok{ + right }\StringTok{")"}\NormalTok{;}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Some of the parsing methods become simpler, but not all do e.g.~\texttt{parseNum} is unchanged
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{Node} \FunctionTok{parseNum}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+  \KeywordTok{if}\NormalTok{ (!sc.}\FunctionTok{hasNext}\NormalTok{(sc)) }
+    \KeywordTok{throw} \KeywordTok{new} \BuiltInTok{ParseException}\NormalTok{(}\StringTok{"Not a Number"}\NormalTok{, sc);}
+  \KeywordTok{return} \KeywordTok{new} \FunctionTok{NumberNode}\NormalTok{(sc.}\FunctionTok{nextInt}\NormalTok{());}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{ParseExpr} method is simplified as \texttt{ExpressionNode}'s no longer need to be created, just the constituent node.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{Node} \FunctionTok{parseExpr}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"[{-}+]}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{d+"}\NormalTok{)) }
+    \KeywordTok{return} \FunctionTok{parseNum}\NormalTok{(sc);}
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"add"}\NormalTok{))}
+    \KeywordTok{return} \FunctionTok{parseAdd}\NormalTok{(sc);}
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"sub"}\NormalTok{))}
+    \KeywordTok{return} \FunctionTok{parseSub}\NormalTok{(sc);}
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"mul"}\NormalTok{))}
+    \KeywordTok{return} \FunctionTok{parseMul}\NormalTok{(sc);}
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"div"}\NormalTok{))}
+    \KeywordTok{return} \FunctionTok{parseDiv}\NormalTok{(sc);}
+  \KeywordTok{throw} \KeywordTok{new} \BuiltInTok{ParseException}\NormalTok{(}\StringTok{"Node.unknown or Node.missing"}\NormalTok{, sc);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Likewise, \texttt{parseAdd} \ldots{} are simpler
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{Node} \FunctionTok{parseAdd}\NormalTok{(Scannar sc) \{}
+  \KeywordTok{private} \DataTypeTok{final} \BuiltInTok{Node}\NormalTok{ left, right}
+  \FunctionTok{require}\NormalTok{(}\StringTok{"add"}\NormalTok{, }\StringTok{"add.missing"}\NormalTok{, sc);}
+  \FunctionTok{require}\NormalTok{(}\StringTok{"("}\NormalTok{, }\StringTok{"(.missing"}\NormalTok{, sc);}
+\NormalTok{  left = }\FunctionTok{parseExpr}\NormalTok{(sc);}
+  \FunctionTok{require}\NormalTok{(}\StringTok{","}\NormalTok{, }\StringTok{",.missing"}\NormalTok{, sc);}
+\NormalTok{  right = }\FunctionTok{parseExpr}\NormalTok{(sc);}
+  \FunctionTok{require}\NormalTok{(}\StringTok{")"}\NormalTok{, }\StringTok{").missing"}\NormalTok{, sc);}
+  \KeywordTok{return} \KeywordTok{new} \FunctionTok{AddNode}\NormalTok{(left, right);}
+\NormalTok{\}}
+
+\CommentTok{// Consume and return the next token if it matches the pattern, else throw an exception}
+\DataTypeTok{void} \FunctionTok{require}\NormalTok{(}\BuiltInTok{String}\NormalTok{ pattern, }\BuiltInTok{String}\NormalTok{ errorMessage, }\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(pattern)) \{}
+\NormalTok{    sc.}\FunctionTok{next}\NormalTok{();}
+    \KeywordTok{return}\NormalTok{ sc;}
+\NormalTok{  \}}
+  \KeywordTok{throw} \KeywordTok{new} \BuiltInTok{ParseException}\NormalTok{(errorMessage, sc);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+After constructing the AST, it can be evaluated, that is the result of the input expression can be calculated. All that needs to be done is for the \texttt{Node} interface to have an \texttt{evaluate} method, requiring all subclasses to implement it. For the more complicated classes such as \texttt{AddNode} the expression can be evaluated with a recursive DFS.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{interface} \BuiltInTok{Node}\NormalTok{ \{}
+  \KeywordTok{public} \DataTypeTok{int} \FunctionTok{evaluate}\NormalTok{();}
+\NormalTok{\}}
+
+\KeywordTok{class}\NormalTok{ NumberNode }\KeywordTok{implements} \BuiltInTok{Node}\NormalTok{ \{}
+\NormalTok{  ...}
+  \KeywordTok{public} \DataTypeTok{int} \FunctionTok{evaluate}\NormalTok{() \{}\KeywordTok{return}\NormalTok{ value;\}}
+\NormalTok{\}}
+
+\KeywordTok{class}\NormalTok{ AddNode implments }\BuiltInTok{Node}\NormalTok{ \{}
+\NormalTok{  ...}
+  \KeywordTok{public} \DataTypeTok{int} \FunctionTok{evaluate}\NormalTok{() \{}
+    \KeywordTok{return}\NormalTok{ left.}\FunctionTok{evaluate}\NormalTok{() + right.}\FunctionTok{evaluate}\NormalTok{(); }\CommentTok{// Recursive DFS expression tree}
+\NormalTok{  \}}
+  
+  \KeywordTok{public} \BuiltInTok{String} \FunctionTok{toString}\NormalTok{() \{ }\CommentTok{// Print the expression in human readable infix notation}
+    \KeywordTok{return} \StringTok{"("}\NormalTok{ + left + }\StringTok{","}\NormalTok{ right + }\StringTok{")"}\NormalTok{;}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{extending-the-grammar}{%
+\section{Extending the Grammar}\label{extending-the-grammar}}
+
+Now that we can build the AST and evaluate it, we want to extend the grammar to allow for floating point numbers and integers. This means we require more complex patterns for numbers.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{ NumberNode }\KeywordTok{implements} \BuiltInTok{Node}\NormalTok{ \{}
+  \KeywordTok{private} \DataTypeTok{final} \DataTypeTok{double}\NormalTok{ value;}
+  \KeywordTok{public} \FunctionTok{NumberNode}\NormalTok{(}\DataTypeTok{double}\NormalTok{ value) \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{value}\NormalTok{ = value; }
+\NormalTok{  \}}
+  \KeywordTok{public} \BuiltInTok{String} \FunctionTok{toString}\NormalTok{() \{}
+    \KeywordTok{return} \BuiltInTok{String}\FunctionTok{.format}\NormalTok{(}\StringTok{"}\SpecialCharTok{\%.5f}\StringTok{"}\NormalTok{, value);}
+\NormalTok{  \}}
+  \KeywordTok{public} \DataTypeTok{double} \FunctionTok{evaluate}\NormalTok{() \{}
+    \KeywordTok{return}\NormalTok{ value;}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Example: \texttt{add(10.5,\ -8)}
+
+\begin{verbatim}
+Print -> (10.5 + -8.0)
+Value -> 2.500
+\end{verbatim}
+
+Example: \texttt{add(sub(10.5,-8),mul(div(45,5),6.8))}
+
+\begin{verbatim}
+Print -> ((10.5 - -8.0) + ((45.0 / 5.0) * 6.8))
+Value -> 79.700
+\end{verbatim}
+
+What about extending the grammar so that each rule can take more than two arguments
+
+\begin{verbatim}
+Expr ::= Num | Add | Sub | Mul | Div
+Add ::= "add" "(" Expr ["," Expr]+ ")"
+Sub ::= "sub" "(" Expr ["," Expr]+ ")"
+Mul ::= "mul" "(" Expr ["," Expr]+ ")"
+Div ::= "div" "(" Expr ["," Expr]+ ")"
+Num ::= [-+]?[0-9]+
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics{img/09-image10.png}
+\caption{\label{fig:example-ast-expr2}The AST for the expression add(45,16,sub(10,5,1),34)}
+\end{figure}
+
+\texttt{sub(10,5,1)} could mean 10 - 5 - 1, the order the operands are evaluated in will be determined by \texttt{evaluate()}. To account for 2+ arguments to nonterminals, the parsing methods and data structures need to be generalised:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{ AddNode }\KeywordTok{implements} \BuiltInTok{Node}\NormalTok{ \{}
+  \KeywordTok{private} \DataTypeTok{final} \BuiltInTok{List}\NormalTok{\textless{}}\BuiltInTok{Node}\NormalTok{\textgreater{} arguments;}
+  \KeywordTok{public} \FunctionTok{AddNode}\NormalTok{(}\BuiltInTok{List}\NormalTok{\textless{}}\BuiltInTok{Node}\NormalTok{\textgreater{} arguments) \{}
+    \KeywordTok{this}\NormalTok{.}\FunctionTok{arguments}\NormalTok{ = arguments;}
+\NormalTok{  \}}
+  \KeywordTok{public} \BuiltInTok{String} \FunctionTok{toString}\NormalTok{() \{}
+    \BuiltInTok{String}\NormalTok{ answer = }\StringTok{"("}\NormalTok{ + arguments.}\FunctionTok{get}\NormalTok{(}\DecValTok{0}\NormalTok{);}
+    \KeywordTok{for}\NormalTok{ (var arg : arguments)}
+\NormalTok{      answer += }\StringTok{" + "}\NormalTok{ arg;}
+    
+    \KeywordTok{return}\NormalTok{ answer + }\StringTok{")"}\NormalTok{;}
+\NormalTok{  \}}
+  \KeywordTok{public} \DataTypeTok{double} \FunctionTok{evaluate}\NormalTok{() \{}
+    \DataTypeTok{double}\NormalTok{ answer = }\DecValTok{0}\NormalTok{;}
+    \KeywordTok{for}\NormalTok{ (var arg : arguments)}
+\NormalTok{      answer += arg;}
+     \KeywordTok{return}\NormalTok{ answer;}
+\NormalTok{  \}}
+\NormalTok{ \}}
+ 
+\BuiltInTok{Node} \FunctionTok{parseAdd}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+  \KeywordTok{private} \BuiltInTok{List}\NormalTok{\textless{}}\BuiltInTok{Node}\NormalTok{\textgreater{} args = }\KeywordTok{new} \BuiltInTok{ArrayList}\NormalTok{\textless{}\textgreater{}();}
+  \FunctionTok{require}\NormalTok{(}\StringTok{"add"}\NormalTok{, }\StringTok{"Expecting add"}\NormalTok{, sc);}
+  \FunctionTok{require}\NormalTok{(}\StringTok{"("}\NormalTok{, }\StringTok{"Missing \textquotesingle{}(\textquotesingle{}"}\NormalTok{, sc);}
+\NormalTok{  args.}\FunctionTok{add}\NormalTok{(}\FunctionTok{parseExpr}\NormalTok{(sc));}
+  \KeywordTok{do}\NormalTok{ \{}
+    \FunctionTok{require}\NormalTok{(}\StringTok{","}\NormalTok{, }\StringTok{"Missing \textquotesingle{},\textquotesingle{}"}\NormalTok{, sc);}
+\NormalTok{    args.}\FunctionTok{add}\NormalTok{(}\FunctionTok{parseExpr}\NormalTok{(sc))}
+\NormalTok{  \} }\KeywordTok{while}\NormalTok{ (!sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{")"}\NormalTok{));}
+  \FunctionTok{require}\NormalTok{(}\StringTok{")"}\NormalTok{, }\StringTok{"Missing \textquotesingle{})\textquotesingle{}"}\NormalTok{, sc);}
+  \KeywordTok{return} \KeywordTok{new} \FunctionTok{AddNode}\NormalTok{(args);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{ll1}{%
+\section{LL(1)}\label{ll1}}
+
+The previous grammar is known as a LL grammar. A LL grammar is a context-free grammar that can be parsed by a LL parser, which deterministically parses the input from Left to right, and constructs a Leftmost derivation\footnote{in a leftmost derivation the leftmost nonterminal in the sequence of nonterminals is evaluated first} of the input string.
+
+\hypertarget{when-does-it-work}{%
+\subsection{When does it work}\label{when-does-it-work}}
+
+If we have a grammar rule involving choices:
+
+\begin{verbatim}
+N ::= W1 | W2 | ... | Wn
+\end{verbatim}
+
+we must be able to tell which alternative to take, by only looking at the next input token. Put, formally:
+
+For any i and j (where i != j) there is no symbol that can start both an instance of W\_i and an instance of W\_j.
+
+This rule is easy to check if W\_i and W\_j start with terminals, what if they start with nonterminals?
+
+\hypertarget{grammars-that-fail-ll1}{%
+\subsection{Grammars that Fail LL(1)}\label{grammars-that-fail-ll1}}
+
+\begin{verbatim}
+IfStmt ::= "if" "(" Cond ")" Stmt | "if" "(" Cond ")" Stmt "else" Stmt
+\end{verbatim}
+
+The two choices share the same leading terminals and subsequent terminals e.g.~``if'' and ``('' so this grammar fails the LL(1) rule
+
+\begin{verbatim}
+A ::= B "c" | B "d"
+\end{verbatim}
+
+The two choices share the same leading nonterminal, this means it is not possible to determine which branch to follow.
+
+\begin{verbatim}
+E ::= num | E "+" E | E "-" E | E "*" E | E "/" E
+\end{verbatim}
+
+This grammar defines ``infix'' arithmetic expressions, for all choices other than the first, the LL(1) rule would fail as they share the same leading nonterminal. This grammar is also ambiguous.
+
+\hypertarget{left-factoring}{%
+\subsubsection{Left-factoring}\label{left-factoring}}
+
+Consider the first grammar rule:
+
+\begin{verbatim}
+IfStmt ::= "if" "(" Cond ")" Stmt | "if" "(" Cond ")" Stmt "else" Stmt
+\end{verbatim}
+
+If we see an ``if'', we can't tell which branch to take, this can be fixed by `factoring' out the common part:
+
+\begin{verbatim}
+IfStmt ::= "if" "(" Cond ")" Stmt RestIf
+RestIf ::= "" | "else" Stmt
+\end{verbatim}
+
+The following code is now able to parse input strings conforming to the grammar:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{Node} \FunctionTok{parseIfStmt}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+  \FunctionTok{require}\NormalTok{(}\StringTok{"if"}\NormalTok{, }\StringTok{"Missing \textquotesingle{}if\textquotesingle{}"}\NormalTok{, sc);}
+  \FunctionTok{require}\NormalTok{(}\StringTok{"("}\NormalTok{, }\StringTok{"Missing \textquotesingle{}(\textquotesingle{}"}\NormalTok{, sc);}
+  \BuiltInTok{Node}\NormalTok{ condition = }\FunctionTok{parseCond}\NormalTok{(sc);}
+  \FunctionTok{require}\NormalTok{(}\StringTok{")"}\NormalTok{, }\StringTok{"Missing \textquotesingle{})\textquotesingle{}, sc);}
+  \BuiltInTok{Node}\NormalTok{ thenPart = }\FunctionTok{parseStmt}\NormalTok{(sc);}
+  \BuiltInTok{Node}\NormalTok{ elsePart = }\FunctionTok{parseRestIf}\NormalTok{(sc);}
+  \KeywordTok{return} \FunctionTok{IfNode}\NormalTok{(condition, thenPart, elsePart);}
+  
+\NormalTok{\}}
+
+\BuiltInTok{Node} \FunctionTok{parseRestIf}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(}\StringTok{"else"}\NormalTok{)) \{}
+\NormalTok{    sc.}\FunctionTok{next}\NormalTok{();}
+    \KeywordTok{return} \FunctionTok{parseStmt}\NormalTok{(sc);}
+\NormalTok{  \}}
+  \KeywordTok{return} \KeywordTok{null}\NormalTok{; }\CommentTok{// Take the empty branch if no other branch is possible, using null to represent the empty string}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+This idea can be applied to many other grammars that would otherwise fail LL(1):
+
+\begin{verbatim}
+// Fails LL(1)
+
+A ::= B "c" | B "d"
+
+// Left-factoring
+
+A ::= B E
+E ::= "c" | "d"
+\end{verbatim}
+
+\begin{verbatim}
+// Fails LL(1)
+
+A ::= B "c" | D "e"
+B ::= "f" "g" | "h" "i"
+D ::= "h" "j" | "k" "l"
+
+// Left-factoring
+
+A ::= "h" M | "f" "g" "c" | "k" "l" "e"
+M ::= "i" "c" | "j" "e"
+\end{verbatim}
+
+These left-factorings can be performed through simple algebraic laws - like simplifying boolean expressions.
+
+\hypertarget{grammar-for-constructing-lists}{%
+\section{Grammar for Constructing Lists}\label{grammar-for-constructing-lists}}
+
+Consider the following grammar for lists of identifiers separated by commas. Informally a list is either an identifier, or two lists separated by a comma:
+
+\begin{verbatim}
+L ::= id | L ",", L
+\end{verbatim}
+
+This grammar is {ambiguous} - we can construct more than one parse tree for some given strings. For example there are two possible parse trees for the input text \texttt{"a,b,c"}
+
+\begin{figure}
+\includegraphics{img/09-image11} \caption{The grammar for a list results in multiple possible parse trees due to ambiguity}\label{fig:ambigous}
+\end{figure}
+
+Recursive descent doesn't work for ambiguous grammars - must be able to construct a unique parse tree for any text in the language. The above example showed that two parse trees could be formed for the ``a,b,c'', imagine the number of different possible parse trees for \texttt{"a,b,c,d,e,\ ..."}!
+
+\hypertarget{left-recursion}{%
+\subsection{Left-recursion}\label{left-recursion}}
+
+The grammar for a list could be rewritten to make it left-recursive:
+
+\begin{verbatim}
+L ::= id | L, "," id
+\end{verbatim}
+
+This is now an unambiguous grammar - However any \texttt{L} nonterminal must start with an \texttt{id} nonterminal; if an \texttt{id} is seen it is no longer possible to tell which branch to take, failing the LL(1) rule. In this case left-factoring cannot be used to factor out the common parts into a new rule.
+
+{In general, recursive descent doesn't work for grammars with left-recursive rules (where the nonterminal on the left occurs at the start of some branch on the right)}.
+
+\hypertarget{right-recursion}{%
+\subsection{Right-recursion}\label{right-recursion}}
+
+Instead this grammar can be rewritten to be right-recursive:
+
+\begin{verbatim}
+L ::= id | id "," L
+\end{verbatim}
+
+This is an unambiguous grammar and the common parts can be factored to satisfy the LL(1) condition:
+
+\begin{verbatim}
+L ::= id R
+R ::= "" | "," L
+\end{verbatim}
+
+However this will create a parse tree where the identifiers are in the reverse order to the input expression.
+
+\hypertarget{infix-expressions}{%
+\section{Infix Expressions}\label{infix-expressions}}
+
+Consider the following grammar for arithmetic expressions:
+
+\begin{verbatim}
+E ::= number | E "+" E | E "-" E | E "*" E | E "/" E | "(" E ")"
+\end{verbatim}
+
+This is an ambiguous grammar, as many parse trees can be created for some expressions. However does it matter which parse tree is used? Yes, as the order of evaluation is important in some cases i.e.~2 + 3 is the same as 3 + 2, but 2 - 3 is not the same as 3 - 2.
+
+For the expression \texttt{65\ *\ 74\ -\ 68\ +\ 25\ *\ 5\ /\ 3\ +\ 16} the following parse trees can be formed.
+
+\begin{figure}
+\includegraphics{img/09-image12} \caption{Left-Recursive parse tree}\label{fig:left-recursive}
+\end{figure}
+
+\begin{figure}
+\includegraphics{img/09-image13} \caption{Right-Recursive parse tree}\label{fig:right-recursive}
+\end{figure}
+
+\begin{figure}
+\includegraphics{img/09-image14} \caption{Parse tree created from in-place traversal}\label{fig:infix-recursive}
+\end{figure}
+
+And none of the above parse trees conform to the rules of operator precedence i.e.~BEDMAS
+
+The grammar can be made unambiguous by making it right-recursive, as with the list grammar:
+
+\begin{verbatim}
+EXPR ::= number | number "+" EXPR | number "-" EXPR | number "*" EXPR | number "*" EXPR | number "/" EXPR
+\end{verbatim}
+
+And it can then be made LL(1) by left-factoring
+
+\begin{verbatim}
+EXPR ::= number RESTOFEXPR
+RESTOFEXPR ::= "+" EXPR | "-" EXPR | "*" EXPR | "/" EXPR | ""
+\end{verbatim}
+
+But what will the resultant parse tree look like? And will it evaluate expressions correctly as intended? - No the above grammar has no rule for handling operator precedence
+
+Operator precedence can be handled by introducing a new nonterminal to the grammar
+
+\begin{verbatim}
+EXPR ::= TERM | TERM "+" EXPR | TERM "-" EXPR | TERM "*" EXPR | TERM "/" EXPR
+
+TERM ::= number | number "*" TERM | number "/" TERM | "(" EXPR ")"
+\end{verbatim}
+
+And made LL(1) by left-factoring:
+
+\begin{verbatim}
+EXPR ::= TERM RESTOFEXPR
+RESTOFEXPR ::= "+" EXPR | "-" EXPR | ""
+TERM ::= number RESTOFTERM
+RESTOFTERM ::= "*" TERM | "/" TERM | ""
+\end{verbatim}
+
+This grammar will now create an unambiguous parse tree that evaluates the expression correctly
+
+\begin{figure}
+\includegraphics{img/09-image15} \caption{The right-recursive LL(1) parse tree for evaluating infix expressions with the correct operator precedence}\label{fig:infix-expression}
+\end{figure}
+
+\hypertarget{a-more-practical-approach}{%
+\subsection{A More Practical Approach}\label{a-more-practical-approach}}
+
+Instead of writing the grammar:
+
+\begin{verbatim}
+E ::= number | E "+" E | E "-" E | E "*" E | E "/" E | "(" E ")"
+\end{verbatim}
+
+like:
+
+\begin{verbatim}
+EXPR ::= TERM RESTOFEXPR
+RESTOFEXPR ::= "+" EXPR | "-" EXPR | ""
+TERM ::= number RESTOFTERM
+RESTOFTERM ::= "*" TERM | "/" TERM | ""
+\end{verbatim}
+
+Write it like
+
+\begin{verbatim}
+E ::= T [("+" | "-") T]*
+T ::= F[("*" | "/") F]*
+F ::= number | "("E ")"
+\end{verbatim}
+
+And the parser will become
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{Node} \FunctionTok{parseExpr}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+  \BuiltInTok{Node}\NormalTok{ term = }\FunctionTok{parseTerm}\NormalTok{(sc);}
+  \KeywordTok{while}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(addOrSubPattern)) \{}
+    \BuiltInTok{String}\NormalTok{ operator = sc.}\FunctionTok{next}\NormalTok{();}
+    \BuiltInTok{Node}\NormalTok{ right = }\FunctionTok{parseTerm}\NormalTok{(sc);}
+    \KeywordTok{if}\NormalTok{ (operator.}\FunctionTok{equals}\NormalTok{(}\StringTok{"+"}\NormalTok{))}
+\NormalTok{      term = }\KeywordTok{new} \FunctionTok{AddNode}\NormalTok{(term, right);}
+    \KeywordTok{else}\NormalTok{ term = }\KeywordTok{new} \FunctionTok{SubNode}\NormalTok{(term, right);}
+\NormalTok{  \}}
+  \KeywordTok{return}\NormalTok{ term;}
+\NormalTok{\}}
+
+\BuiltInTok{Node} \FunctionTok{parseTerm}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+  \BuiltInTok{Node}\NormalTok{ factor = }\FunctionTok{parseFactor}\NormalTok{(sc)}
+  \KeywordTok{while}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(multOrDivPattern)) \{}
+    \BuiltInTok{String}\NormalTok{ operator = sc.}\FunctionTok{next}\NormalTok{();}
+    \BuiltInTok{Node}\NormalTok{ right = }\FunctionTok{parseFactor}\NormalTok{(sc);}
+    \KeywordTok{if}\NormalTok{ (operator.}\FunctionTok{equals}\NormalTok{(}\StringTok{"*"}\NormalTok{))}
+\NormalTok{      factor = }\KeywordTok{new} \FunctionTok{MultNode}\NormalTok{(factor, right);}
+    \KeywordTok{else}\NormalTok{ factor = }\KeywordTok{new} \FunctionTok{DivNode}\NormalTok{(factor, right);}
+\NormalTok{  \}}
+  \KeywordTok{return}\NormalTok{ factor;}
+\NormalTok{\}}
+
+\BuiltInTok{Node} \FunctionTok{parseFactor}\NormalTok{(}\BuiltInTok{Scanner}\NormalTok{ sc) \{}
+  \KeywordTok{if}\NormalTok{ (sc.}\FunctionTok{hasNext}\NormalTok{(numPattern))}
+    \KeywordTok{return} \KeywordTok{new} \FunctionTok{NumNode}\NormalTok{(sc.}\FunctionTok{next}\NormalTok{())}
+  \KeywordTok{if}\NormalTok{ (!sc.}\FunctionTok{hasNext}\NormalTok{(openParenthesis)) \{}
+    \KeywordTok{throw} \KeywordTok{new} \BuiltInTok{ParseException}\NormalTok{(}\StringTok{"Expected \textquotesingle{}(\textquotesingle{}"}\NormalTok{);}
+\NormalTok{  \}}
+\NormalTok{  sc.}\FunctionTok{next}\NormalTok{();}
+  \BuiltInTok{Node}\NormalTok{ expression = }\FunctionTok{ParseExpr}\NormalTok{(sc);}
+  \KeywordTok{if}\NormalTok{ (!sc.}\FunctionTok{expression}\NormalTok{(closeParenthesis)) \{}
+    \KeywordTok{throw} \KeywordTok{new} \BuiltInTok{ParseException}\NormalTok{(}\StringTok{"Expected \textquotesingle{})\textquotesingle{}"}\NormalTok{);}
+\NormalTok{  \}}
+  \KeywordTok{return}\NormalTok{ expression;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}
